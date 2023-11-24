@@ -27,6 +27,9 @@
 # Python environment directory (folder name depends on user)
 venv/
 
+# Reinforcement learning model results folder
+results/
+
 # Visual Studio cache directory
 .vs/
 

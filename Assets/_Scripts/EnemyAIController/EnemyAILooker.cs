@@ -35,12 +35,15 @@ public class EnemyAILooker : MonoBehaviour {
     private void FindPlayer() {
         Collider[] targets = Physics.OverlapSphere(transform.position, _viewRadius, playerMask);
 
-        if (targets.Length == 0) return;
+        if (targets.Length == 0) {
+			_player = null;
+			return;
+		}
 
         Transform player = targets[0].transform;
 
-        float dist = Vector3.Distance(player.localPosition, transform.localPosition);
-        Vector3 dir = (player.localPosition - transform.localPosition).normalized;
+        float dist = Vector3.Distance(player.position, transform.position);
+        Vector3 dir = (player.position - transform.position).normalized;
 
         if (Vector3.Angle(transform.forward, dir) > _viewAngle / 2) return;
         if (Physics.Raycast(transform.position, dir, dist, obstacleMask)) return;
