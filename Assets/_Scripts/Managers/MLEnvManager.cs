@@ -11,7 +11,9 @@ public class MLEnvManager : MonoBehaviour {
 
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private Transform enemySpawn;
-	[SerializeField] private Transform[] initialObjectives;
+
+	[SerializeField] private Transform[] _initialObjectives;
+	public Transform[] initialObjectives { get { return _initialObjectives; } }
 
 	private List<Transform> _activeObjectives;
 	public List<Transform> activeObjectives { get { return _activeObjectives; } }
@@ -27,7 +29,6 @@ public class MLEnvManager : MonoBehaviour {
 		if (_activeObjectives.Contains(objective)) {
 			objective.gameObject.SetActive(false);
 			_activeObjectives.Remove(objective);
-			Debug.Log("removal successful");
 		}
 
 		if (_activeObjectives.Count > 0) playerAIController.SetDestination(_activeObjectives[0].position);
@@ -46,9 +47,9 @@ public class MLEnvManager : MonoBehaviour {
     private void Initialise() {
         ResetSpawn();
 
-		foreach (var objective in initialObjectives) objective.gameObject.SetActive(true);
+		foreach (var objective in _initialObjectives) objective.gameObject.SetActive(true);
 
-        _activeObjectives = initialObjectives.ToList();
+        _activeObjectives = _initialObjectives.ToList();
 
 		playerAIController.SetDestination(_activeObjectives[0].position);
     }

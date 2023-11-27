@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.MLAgents;
@@ -10,6 +8,10 @@ public class EnemyAIController : Agent {
 
 	private MLEnvManager academy;
 
+	private NavMeshAgent navMeshAgent;
+
+    private EnemyAILooker enemyAILooker;
+
 	[SerializeField] private float speed = 5, rotateMultiplier = 5;
 
 	[SerializeField] private LayerMask playerMask;
@@ -19,22 +21,17 @@ public class EnemyAIController : Agent {
     [SerializeField] private int playerLoseReward = 5;
     [SerializeField] private int playerWinPunishment = 5;
 
-    private NavMeshAgent navMeshAgent;
-
-    private EnemyAILooker looker;
-
     private void Awake() {
 		academy = transform.root.GetComponent<MLEnvManager>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
-        looker = GetComponentInChildren<EnemyAILooker>();
+        enemyAILooker = GetComponentInChildren<EnemyAILooker>();
     }
 	
     private void OnTriggerEnter(Collider other) {
         if ((int)Mathf.Pow(2, other.gameObject.layer) != playerMask) return;
-		SetReward(playerFoundReward);
+
 		academy.EndEpisode();
-        Debug.Log("Player captured.");
     }
 
 	public void Respawn(Vector3 position) {
@@ -60,8 +57,10 @@ public class EnemyAIController : Agent {
         Vector3 move = new Vector3(actions.ContinuousActions[0], 0, actions.ContinuousActions[1]);
         float angle = actions.ContinuousActions[2] * rotateMultiplier;
 
-        if (looker.player != null) navMeshAgent.SetDestination(looker.player.position);
-        else {
+        if (enemyAILooker.player != null) {
+			navMeshAgent.SetDestination(enemyAILooker.player.position);
+			SetReward(playerFoundReward);
+		} else {
             transform.Translate(move * speed * Time.fixedDeltaTime);
             transform.RotateAround(transform.position, transform.up, angle);
         }
@@ -71,7 +70,7 @@ public class EnemyAIController : Agent {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(transform.localEulerAngles);
         sensor.AddObservation(academy.activeObjectives.Count);
-		foreach (var objective in academy.activeObjectives) {
+		foreach (var objective in academy.initialObjectives) {
 			sensor.AddObservation(objective.position);
 			sensor.AddObservation(objective.gameObject.activeInHierarchy);
 		}

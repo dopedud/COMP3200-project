@@ -15,10 +15,9 @@ public class EnemyAILooker : MonoBehaviour {
     private Transform _player;
     public Transform player { get { return _player; } }
 
+	private float maskCutawayDst = .1f;
     [SerializeField] private float meshResolution, edgeDstThreshold;
 	[SerializeField] private int edgeResolveIterations;
-	
-	private float maskCutawayDst = .1f;
 
 	private MeshFilter viewMeshFilter;
 	private Mesh viewMesh;
@@ -35,7 +34,9 @@ public class EnemyAILooker : MonoBehaviour {
     private void FindPlayer() {
         Collider[] targets = Physics.OverlapSphere(transform.position, _viewRadius, playerMask);
 
-        if (targets.Length == 0) {
+		bool contactedPlayer = true;
+
+		if (targets.Length == 0) {
 			_player = null;
 			return;
 		}
@@ -45,19 +46,20 @@ public class EnemyAILooker : MonoBehaviour {
         float dist = Vector3.Distance(player.position, transform.position);
         Vector3 dir = (player.position - transform.position).normalized;
 
-        if (Vector3.Angle(transform.forward, dir) > _viewAngle / 2) return;
-        if (Physics.Raycast(transform.position, dir, dist, obstacleMask)) return;
+        if (Vector3.Angle(transform.forward, dir) > _viewAngle / 2) contactedPlayer = false;
+        if (Physics.Raycast(transform.position, dir, dist, obstacleMask)) contactedPlayer = false;
 
-        _player = player;
+        if (contactedPlayer) _player = player;
+		else _player = null;
     }
 
     private void DrawFOV() {
-        	int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
-		    float stepAngleSize = viewAngle / stepCount;
+        	int stepCount = Mathf.RoundToInt(_viewAngle * meshResolution);
+		    float stepAngleSize = _viewAngle / stepCount;
 		    List<Vector3> viewPoints = new List<Vector3>();
 		    ViewCastInfo oldViewCast = new ViewCastInfo();
 		    for (int i = 0; i <= stepCount; i++) {
-			    float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
+			    float angle = transform.eulerAngles.y - _viewAngle / 2 + stepAngleSize * i;
 			    ViewCastInfo newViewCast = ViewCast(angle);
 
 			    if (i > 0) {
@@ -128,9 +130,9 @@ public class EnemyAILooker : MonoBehaviour {
 		Vector3 dir = DirFromAngle (globalAngle, true);
 		RaycastHit hit;
 
-		if (Physics.Raycast (transform.position, dir, out hit, viewRadius, obstacleMask)) 
+		if (Physics.Raycast (transform.position, dir, out hit, _viewRadius, obstacleMask)) 
 		return new ViewCastInfo (true, hit.point, hit.distance, globalAngle); 
-		else return new ViewCastInfo (false, transform.position + dir * viewRadius, viewRadius, globalAngle);
+		else return new ViewCastInfo (false, transform.position + dir * _viewRadius, _viewRadius, globalAngle);
 	}
 
 	public struct ViewCastInfo {
