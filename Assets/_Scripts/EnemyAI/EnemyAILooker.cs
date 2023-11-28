@@ -28,10 +28,7 @@ public class EnemyAILooker : MonoBehaviour {
         viewMeshFilter.mesh = viewMesh;
 	}
 
-    private void Update() => FindPlayer();
-	private void LateUpdate() => DrawFOV();
-
-    private void FindPlayer() {
+	public void FindPlayer() {
         Collider[] targets = Physics.OverlapSphere(transform.position, _viewRadius, playerMask);
 
 		bool contactedPlayer = true;
@@ -52,6 +49,8 @@ public class EnemyAILooker : MonoBehaviour {
         if (contactedPlayer) _player = player;
 		else _player = null;
     }
+
+	private void LateUpdate() => DrawFOV();
 
     private void DrawFOV() {
         	int stepCount = Mathf.RoundToInt(_viewAngle * meshResolution);

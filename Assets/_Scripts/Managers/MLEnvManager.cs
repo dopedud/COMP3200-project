@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MLEnvManager : MonoBehaviour {
 
@@ -31,7 +32,8 @@ public class MLEnvManager : MonoBehaviour {
 			_activeObjectives.Remove(objective);
 		}
 
-		if (_activeObjectives.Count > 0) playerAIController.SetDestination(_activeObjectives[0].position);
+		if (_activeObjectives.Count > 0) 
+		playerAIController.SetDestination(_activeObjectives[0].position);
 		else EndEpisode();
 	}
 
@@ -47,9 +49,11 @@ public class MLEnvManager : MonoBehaviour {
     private void Initialise() {
         ResetSpawn();
 
-		foreach (var objective in _initialObjectives) objective.gameObject.SetActive(true);
+		_activeObjectives = _initialObjectives.ToList();
+		
+		if (_initialObjectives.Length == 0) return;
 
-        _activeObjectives = _initialObjectives.ToList();
+		foreach (var objective in _initialObjectives) objective.gameObject.SetActive(true);
 
 		playerAIController.SetDestination(_activeObjectives[0].position);
     }

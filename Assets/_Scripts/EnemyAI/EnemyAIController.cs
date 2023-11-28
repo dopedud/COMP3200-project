@@ -3,14 +3,13 @@ using UnityEngine.AI;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using System.Linq;
 
 public class EnemyAIController : Agent {
 
 	private MLEnvManager academy;
 
 	private NavMeshAgent navMeshAgent;
-
-    private EnemyAILooker enemyAILooker;
 
 	[SerializeField] private float speed = 5, rotateMultiplier = 5;
 
@@ -25,7 +24,6 @@ public class EnemyAIController : Agent {
 		academy = transform.root.GetComponent<MLEnvManager>();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemyAILooker = GetComponentInChildren<EnemyAILooker>();
     }
 	
     private void OnTriggerEnter(Collider other) {
@@ -57,19 +55,16 @@ public class EnemyAIController : Agent {
         Vector3 move = new Vector3(actions.ContinuousActions[0], 0, actions.ContinuousActions[1]);
         float angle = actions.ContinuousActions[2] * rotateMultiplier;
 
-        if (enemyAILooker.player != null) {
-			navMeshAgent.SetDestination(enemyAILooker.player.position);
-			SetReward(playerFoundReward);
-		} else {
-            transform.Translate(move * speed * Time.fixedDeltaTime);
-            transform.RotateAround(transform.position, transform.up, angle);
-        }
+        transform.Translate(move * speed * Time.fixedDeltaTime);
+        transform.RotateAround(transform.position, transform.up, angle);
     }
 
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(transform.localEulerAngles);
-        sensor.AddObservation(academy.activeObjectives.Count);
+
+		if (academy.initialObjectives.Length == 0) return;
+
 		foreach (var objective in academy.initialObjectives) {
 			sensor.AddObservation(objective.position);
 			sensor.AddObservation(objective.gameObject.activeInHierarchy);
