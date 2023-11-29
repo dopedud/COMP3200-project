@@ -11,22 +11,19 @@ public class EnemyAIController : Agent {
 
 	private new Rigidbody rigidbody;
 
-	private RayPerceptionSensorComponentBase rayPerceptionSensor;
+	private EnemyAILooker looker;
 
-	[SerializeField] private float speed = 5, rotateMultiplier = 5;
+	[SerializeField] private float moveSpeed = 2.5f, rotateSpeed = 2.5f;
 
 	[SerializeField] private LayerMask playerMask;
 
-	[SerializeField] private int playerFoundReward = 1;
-
-    [SerializeField] private int playerLoseReward = 5;
-    [SerializeField] private int playerWinPunishment = 5;
+	[SerializeField] private float playerFoundReward = .05f, playerLoseReward = 5;
 
     private void Awake() {
 		academy = transform.root.GetComponent<MLEnvManager>();
 		rigidbody = GetComponent<Rigidbody>();
-		
-		rayPerceptionSensor = GetComponentInChildren<RayPerceptionSensorComponent3D>();
+
+		looker = GetComponentInChildren<EnemyAILooker>();
     }
 	
     private void OnTriggerEnter(Collider other) {
@@ -47,16 +44,19 @@ public class EnemyAIController : Agent {
 	}
 
 	public override void OnActionReceived(ActionBuffers actions) {
+		if (looker.FindPlayer()) SetReward(playerFoundReward * 5);
+		else SetReward(-playerFoundReward);
+
         Vector3 move = transform.forward * (actions.DiscreteActions[0] - 1);
-        float angle = rotateMultiplier * (actions.DiscreteActions[1] - 1);
+        Vector3 angle = transform.up * (actions.DiscreteActions[1] - 1);
 		
-		rigidbody.velocity = move * speed;
-		rigidbody.angularVelocity = transform.up * angle;
+		rigidbody.velocity = move * moveSpeed;
+		rigidbody.angularVelocity =  angle * rotateSpeed;
     }
 
     public override void CollectObservations(VectorSensor sensor) {
-        sensor.AddObservation(transform.localPosition);
-        sensor.AddObservation(transform.localEulerAngles);
+        sensor.AddObservation(transform.localPosition.x);
+		sensor.AddObservation(transform.localPosition.z);
 
 		if (academy.initialObjectives.Length == 0) return;
 
@@ -70,7 +70,7 @@ public class EnemyAIController : Agent {
 		transform.position = position;
 	}
 
-	public void Punish() => SetReward(-playerWinPunishment);
+	public void Punish() => SetReward(-playerLoseReward);
 	public void Reward() => SetReward(playerLoseReward);
 
 }

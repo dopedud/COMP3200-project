@@ -1,68 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 public class EnemyAILooker : MonoBehaviour {
 
-    [SerializeField, Min(0)] private float _viewRadius;
-    public float viewRadius { get { return _viewRadius; } }
-    [SerializeField, Range(0, 360)] private float _viewAngle;
-    public float viewAngle { get { return _viewAngle; } }
-
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask obstacleMask;
 
-    private Transform _player;
-    public Transform player { get { return _player; } }
+	private RayPerceptionSensorComponentBase rayPerceptionSensor;
+
+	private float viewRadius;
+    private float viewAngle;
+
+	private Mesh viewMesh;
+	private MeshFilter viewMeshFilter;
 
 	private float maskCutawayDst = .1f;
-    [SerializeField] private float meshResolution, edgeDstThreshold;
-	[SerializeField] private int edgeResolveIterations;
-
-	private MeshFilter viewMeshFilter;
-	private Mesh viewMesh;
+    [SerializeField] private float meshResolution = 1, edgeDistanceThreshold = 1;
+	[SerializeField] private int edgeResolveIterations = 4;
 
 	private void Awake() {
+		rayPerceptionSensor = GetComponent<RayPerceptionSensorComponent3D>();
+
+		viewRadius = rayPerceptionSensor.RayLength;
+		viewAngle = rayPerceptionSensor.MaxRayDegrees * 2;
+
 		viewMeshFilter = GetComponent<MeshFilter>();
         viewMesh = new Mesh { name = "View Mesh" };
         viewMeshFilter.mesh = viewMesh;
 	}
 
-	public void FindPlayer() {
-        Collider[] targets = Physics.OverlapSphere(transform.position, _viewRadius, playerMask);
+	public bool FindPlayer() {
+        Collider[] targets = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
 
-		bool contactedPlayer = true;
-
-		if (targets.Length == 0) {
-			_player = null;
-			return;
-		}
+		if (targets.Length == 0) return false;
 
         Transform player = targets[0].transform;
 
         float dist = Vector3.Distance(player.position, transform.position);
         Vector3 dir = (player.position - transform.position).normalized;
 
-        if (Vector3.Angle(transform.forward, dir) > _viewAngle / 2) contactedPlayer = false;
-        if (Physics.Raycast(transform.position, dir, dist, obstacleMask)) contactedPlayer = false;
+        if (Vector3.Angle(transform.forward, dir) > viewAngle / 2) return false;
+        if (Physics.Raycast(transform.position, dir, dist, obstacleMask)) return false;
 
-        if (contactedPlayer) _player = player;
-		else _player = null;
+		return true;
     }
 
 	private void LateUpdate() => DrawFOV();
 
     private void DrawFOV() {
-        	int stepCount = Mathf.RoundToInt(_viewAngle * meshResolution);
-		    float stepAngleSize = _viewAngle / stepCount;
+        	int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
+		    float stepAngleSize = viewAngle / stepCount;
 		    List<Vector3> viewPoints = new List<Vector3>();
 		    ViewCastInfo oldViewCast = new ViewCastInfo();
 		    for (int i = 0; i <= stepCount; i++) {
-			    float angle = transform.eulerAngles.y - _viewAngle / 2 + stepAngleSize * i;
+			    float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
 			    ViewCastInfo newViewCast = ViewCast(angle);
 
 			    if (i > 0) {
-				    bool edgeDstThresholdExceeded = Mathf.Abs(oldViewCast.dst - newViewCast.dst) > edgeDstThreshold;
+				    bool edgeDstThresholdExceeded = Mathf.Abs(oldViewCast.dst - newViewCast.dst) > edgeDistanceThreshold;
 				    if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeDstThresholdExceeded)) {
 					    EdgeInfo edge = FindEdge (oldViewCast, newViewCast);
 					    if (edge.pointA != Vector3.zero) viewPoints.Add (edge.pointA);
@@ -112,7 +109,7 @@ public class EnemyAILooker : MonoBehaviour {
 			float angle = (minAngle + maxAngle) / 2;
 			ViewCastInfo newViewCast = ViewCast (angle);
 
-			bool edgeDstThresholdExceeded = Mathf.Abs (minViewCast.dst - newViewCast.dst) > edgeDstThreshold;
+			bool edgeDstThresholdExceeded = Mathf.Abs (minViewCast.dst - newViewCast.dst) > edgeDistanceThreshold;
 			if (newViewCast.hit == minViewCast.hit && !edgeDstThresholdExceeded) {
 				minAngle = angle;
 				minPoint = newViewCast.point;
@@ -129,9 +126,9 @@ public class EnemyAILooker : MonoBehaviour {
 		Vector3 dir = DirFromAngle (globalAngle, true);
 		RaycastHit hit;
 
-		if (Physics.Raycast (transform.position, dir, out hit, _viewRadius, obstacleMask)) 
+		if (Physics.Raycast (transform.position, dir, out hit, viewRadius, obstacleMask)) 
 		return new ViewCastInfo (true, hit.point, hit.distance, globalAngle); 
-		else return new ViewCastInfo (false, transform.position + dir * _viewRadius, _viewRadius, globalAngle);
+		else return new ViewCastInfo (false, transform.position + dir * viewRadius, viewRadius, globalAngle);
 	}
 
 	public struct ViewCastInfo {

@@ -131,47 +131,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 464757664528834967, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 978710260480900744, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1408605293900058181, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1952911162936807434, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3248631933641414691, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3402824273372387497, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4137456906180489844, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
       propertyPath: m_Name
       value: MLEnvManager (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4137456906180489844, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4820869148707775465, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -224,31 +189,6 @@ PrefabInstance:
     - target: {fileID: 5060175089818644230, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5553787634575967678, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006338347413057148, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7942948853399110703, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260516306537615246, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8482798293783547732, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1067,31 +1007,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 464757664528834967, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 978710260480900744, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1952911162936807434, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3248631933641414691, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3402824273372387497, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4137456906180489844, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
       propertyPath: m_Name
@@ -1101,11 +1016,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4820869148707775465, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5060175089818644230, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
@@ -1156,21 +1066,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006338347413057148, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8260516306537615246, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8482798293783547732, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4325,6 +4220,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 464757664528834967, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367566174860395488, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068714956478284719, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4068714956478284719, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 4137456906180489844, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
       propertyPath: m_Name
