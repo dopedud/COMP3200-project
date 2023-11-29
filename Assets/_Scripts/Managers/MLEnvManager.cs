@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,16 @@ public class MLEnvManager : MonoBehaviour {
     [SerializeField] private Transform playerSpawn;
     [SerializeField] private Transform enemySpawn;
 
-	[SerializeField] private Transform[] _initialObjectives;
-	public Transform[] initialObjectives { get { return _initialObjectives; } }
+	[SerializeField, Min(0)] private float randomPlayerSpawnRadius;
 
-	private List<Transform> _activeObjectives;
-	public List<Transform> activeObjectives { get { return _activeObjectives; } }
+	[SerializeField, Min(0)] private float secondsPerEpisode = 10;
+	private float timeLeft;
+
+	[SerializeField] private Transform[] m_initialObjectives;
+	public Transform[] initialObjectives => m_initialObjectives;
+
+	private List<Transform> m_activeObjectives;
+	public List<Transform> activeObjectives => m_activeObjectives;
 
     private void Start() {
 		playerAIController = GetComponentInChildren<PlayerAIController>();
@@ -27,39 +33,43 @@ public class MLEnvManager : MonoBehaviour {
 	}
 
 	public void ClearObjective(Transform objective) {
-		if (_activeObjectives.Contains(objective)) {
+		if (m_activeObjectives.Contains(objective)) {
 			objective.gameObject.SetActive(false);
-			_activeObjectives.Remove(objective);
+			m_activeObjectives.Remove(objective);
 		}
 
-		if (_activeObjectives.Count > 0) 
-		playerAIController.SetDestination(_activeObjectives[0].position);
-		else EndEpisode();
+		if (m_activeObjectives.Count > 0) 
+		playerAIController.SetDestination(m_activeObjectives[0].position);
+		else EndEpisode(false);
 	}
 
-	public void EndEpisode() {
-        enemyAIController.EndEpisode();
-
-		if (_activeObjectives.Count > 0) enemyAIController.Punish();
+	public void EndEpisode(bool hasCapturedPlayer) {
+		if (!hasCapturedPlayer) enemyAIController.Punish();
 		else enemyAIController.Reward();
 
-		Initialise();
+		enemyAIController.EndEpisode();
     }
 
-    private void Initialise() {
+    public void Initialise() {
         ResetSpawn();
 
-		_activeObjectives = _initialObjectives.ToList();
-		
-		if (_initialObjectives.Length == 0) return;
+		m_activeObjectives = m_initialObjectives.ToList();
 
-		foreach (var objective in _initialObjectives) objective.gameObject.SetActive(true);
+		if (m_initialObjectives.Length == 0) return;
 
-		playerAIController.SetDestination(_activeObjectives[0].position);
+		foreach (var objective in m_initialObjectives) objective.gameObject.SetActive(true);
+
+		playerAIController.SetDestination(m_activeObjectives[0].position);
     }
     
     private void ResetSpawn() {
-        playerAIController.Respawn(playerSpawn.position);
+		float randomX = UnityEngine.Random.Range(-1, 1);
+		float randomY = UnityEngine.Random.Range(-1, 1);
+		Vector3 playerSpawnOffset = new Vector3(randomX, 0 ,randomY) * randomPlayerSpawnRadius;
+		if (playerSpawnOffset.magnitude > randomPlayerSpawnRadius) 
+		playerSpawnOffset = playerSpawnOffset.normalized;
+
+        playerAIController.Respawn(playerSpawn.position + playerSpawnOffset);
         enemyAIController.Respawn(enemySpawn.position);
     }
 

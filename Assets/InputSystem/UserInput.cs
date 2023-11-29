@@ -28,13 +28,13 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
             ""id"": ""268e34ad-5722-4fc1-8818-e2631296e480"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""57b2e93f-2127-475a-9553-d1b193f09685"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""MovementY"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce2836d4-e9aa-4659-95d2-fa9744d9f702"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Rotate"",
@@ -47,61 +47,6 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""0e62ee5d-3e80-4c02-ac77-0f9549b2750b"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""0ab0ac8a-a893-4ba0-b7ce-36b81cef355e"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Default"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""54c8eb70-4d36-4b49-a42b-9c7f7293fa60"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Default"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""7a9755b4-298b-4245-9b34-628ddf56309d"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Default"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""9490ea6c-bdcd-4101-9ca8-04ca8969fd54"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Default"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": ""1D Axis"",
                     ""id"": ""af0a56df-a396-466b-9531-2eff39e27fb1"",
@@ -116,7 +61,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""cd5ef702-a4e1-4323-abf1-81847f070375"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Default"",
@@ -127,11 +72,44 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""c5db7c5e-ad19-4fea-a73b-a66bfd7cb69a"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Default"",
                     ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""953364b3-8e83-41e4-8bc6-2bac2b03b6d9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementY"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""730d4c4b-de01-4b97-936b-765c9452abaf"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Default"",
+                    ""action"": ""MovementY"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""6e2fe6f9-2c1f-4a79-822c-9e10dc1f194e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Default"",
+                    ""action"": ""MovementY"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -154,7 +132,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+        m_Gameplay_MovementY = m_Gameplay.FindAction("MovementY", throwIfNotFound: true);
         m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
     }
 
@@ -217,13 +195,13 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     // Gameplay
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-    private readonly InputAction m_Gameplay_Movement;
+    private readonly InputAction m_Gameplay_MovementY;
     private readonly InputAction m_Gameplay_Rotate;
     public struct GameplayActions
     {
         private @UserInput m_Wrapper;
         public GameplayActions(@UserInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+        public InputAction @MovementY => m_Wrapper.m_Gameplay_MovementY;
         public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
@@ -234,9 +212,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
-            @Movement.started += instance.OnMovement;
-            @Movement.performed += instance.OnMovement;
-            @Movement.canceled += instance.OnMovement;
+            @MovementY.started += instance.OnMovementY;
+            @MovementY.performed += instance.OnMovementY;
+            @MovementY.canceled += instance.OnMovementY;
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
@@ -244,9 +222,9 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IGameplayActions instance)
         {
-            @Movement.started -= instance.OnMovement;
-            @Movement.performed -= instance.OnMovement;
-            @Movement.canceled -= instance.OnMovement;
+            @MovementY.started -= instance.OnMovementY;
+            @MovementY.performed -= instance.OnMovementY;
+            @MovementY.canceled -= instance.OnMovementY;
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
@@ -278,7 +256,7 @@ public partial class @UserInput: IInputActionCollection2, IDisposable
     }
     public interface IGameplayActions
     {
-        void OnMovement(InputAction.CallbackContext context);
+        void OnMovementY(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
     }
 }

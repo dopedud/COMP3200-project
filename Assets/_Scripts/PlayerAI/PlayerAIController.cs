@@ -5,9 +5,9 @@ public class PlayerAIController : MonoBehaviour {
 
 	private MLEnvManager academy;
 
-	[SerializeField] private LayerMask objectiveMask;
+	private NavMeshAgent navMeshAgent;
 
-    private NavMeshAgent navMeshAgent;
+	[SerializeField] private LayerMask objectiveMask;
 
     private Animator animator;
 
