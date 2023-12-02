@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,13 +12,8 @@ public class MLEnvManager : MonoBehaviour {
     private PlayerAIController playerAIController;
     private EnemyAIController enemyAIController;
 
-    [SerializeField] private Transform playerSpawn;
+    [SerializeField] private Transform[] playerSpawns;
     [SerializeField] private Transform enemySpawn;
-
-	[SerializeField, Min(0)] private float randomPlayerSpawnRadius;
-
-	[SerializeField, Min(0)] private float secondsPerEpisode = 10;
-	private float timeLeft;
 
 	[SerializeField] private Transform[] m_initialObjectives;
 	public Transform[] initialObjectives => m_initialObjectives;
@@ -63,13 +59,9 @@ public class MLEnvManager : MonoBehaviour {
     }
     
     private void ResetSpawn() {
-		float randomX = UnityEngine.Random.Range(-1, 1);
-		float randomY = UnityEngine.Random.Range(-1, 1);
-		Vector3 playerSpawnOffset = new Vector3(randomX, 0 ,randomY) * randomPlayerSpawnRadius;
-		if (playerSpawnOffset.magnitude > randomPlayerSpawnRadius) 
-		playerSpawnOffset = playerSpawnOffset.normalized;
+		int playerSpawnIndex = UnityEngine.Random.Range(0, playerSpawns.Length);
 
-        playerAIController.Respawn(playerSpawn.position + playerSpawnOffset);
+        playerAIController.Respawn(playerSpawns[playerSpawnIndex].position);
         enemyAIController.Respawn(enemySpawn.position);
     }
 

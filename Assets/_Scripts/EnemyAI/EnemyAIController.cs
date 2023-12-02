@@ -17,7 +17,10 @@ public class EnemyAIController : Agent {
 
 	[SerializeField] private LayerMask playerMask;
 
-	[SerializeField] private float playerFoundReward = .05f, playerLoseReward = 5;
+	[SerializeField] private float 
+	playerLostPunishment = .05f, 
+	playerFoundReward = 1, 
+	playerLoseReward = 5;
 
     private void Awake() {
 		academy = transform.root.GetComponent<MLEnvManager>();
@@ -44,8 +47,8 @@ public class EnemyAIController : Agent {
 	}
 
 	public override void OnActionReceived(ActionBuffers actions) {
-		if (looker.FindPlayer()) SetReward(playerFoundReward * 5);
-		else SetReward(-playerFoundReward);
+		if (looker.FindPlayer()) SetReward(playerFoundReward);
+		else SetReward(-playerLostPunishment);
 
         Vector3 move = transform.forward * (actions.DiscreteActions[0] - 1);
         Vector3 angle = transform.up * (actions.DiscreteActions[1] - 1);
@@ -57,6 +60,8 @@ public class EnemyAIController : Agent {
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(transform.localPosition.x);
 		sensor.AddObservation(transform.localPosition.z);
+
+		return;
 
 		if (academy.initialObjectives.Length == 0) return;
 
