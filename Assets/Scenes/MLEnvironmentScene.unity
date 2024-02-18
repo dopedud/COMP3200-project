@@ -643,55 +643,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1408605293900058181, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3248631933641414691, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756603961260714363, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4068714956478284719, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: rayMissColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4068714956478284719, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: rayMissColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4068714956478284719, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: rayMissColor.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4137456906180489844, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
       propertyPath: m_Name
       value: MLEnvManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4137456906180489844, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4820869148707775465, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5007907548693339303, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5060175089818644230, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
         type: 3}
@@ -742,16 +697,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5553787634575967678, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7942948853399110703, guid: 0fc2e79e1699aad42ac1a8e710c0acfe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// This class is a player controller script, that simulates how a real player would behave in a real-world use case.
+/// This is done via deterministic means, specifically via finite state machine. This could help diversify the actions
+/// the enemy AI could take in any given time.
+/// </summary>
 public class PlayerAIController : MonoBehaviour {
 
 	private MLEnvManager academy;

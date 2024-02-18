@@ -5,6 +5,10 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using System.Linq;
 
+/// <summary>
+/// This class is the enemy AI script that holds the reinforcement learning mechanism to learn the behaviours of the
+/// player during training.
+/// </summary>
 public class EnemyAIController : Agent {
 
 	private MLEnvManager academy;

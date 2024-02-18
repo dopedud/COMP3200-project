@@ -326,8 +326,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2178551502040550409}
   - {fileID: 3733812151670065835}
+  - {fileID: 2178551502040550409}
   - {fileID: 3749529168537212348}
   m_Father: {fileID: 5060175089818644230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -747,7 +747,7 @@ MonoBehaviour:
     m_Bits: 1536
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  rayMissColor: {r: 0, g: 1, b: 0, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
 --- !u!114 &7261089237856662383

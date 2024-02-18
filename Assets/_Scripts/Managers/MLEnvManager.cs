@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// This class is the main script for controlling reinforcement learning in the environment. It initialises player and
+/// enemy states accordingly, and based on the reset condition, resets accordingly, with player and enemy spawning at
+/// their resetting position. It also manages what to do when an episode ends.
+/// </summary>
 public class MLEnvManager : MonoBehaviour {
 
     private PlayerAIController playerAIController;
@@ -28,6 +31,18 @@ public class MLEnvManager : MonoBehaviour {
 		Initialise();
 	}
 
+    public void Initialise() {
+        ResetSpawn();
+
+		m_activeObjectives = m_initialObjectives.ToList();
+
+		if (m_initialObjectives.Length == 0) return;
+
+		foreach (var objective in m_initialObjectives) objective.gameObject.SetActive(true);
+
+		playerAIController.SetDestination(m_activeObjectives[0].position);
+    }
+
 	public void ClearObjective(Transform objective) {
 		if (m_activeObjectives.Contains(objective)) {
 			objective.gameObject.SetActive(false);
@@ -44,18 +59,6 @@ public class MLEnvManager : MonoBehaviour {
 		else enemyAIController.Reward();
 
 		enemyAIController.EndEpisode();
-    }
-
-    public void Initialise() {
-        ResetSpawn();
-
-		m_activeObjectives = m_initialObjectives.ToList();
-
-		if (m_initialObjectives.Length == 0) return;
-
-		foreach (var objective in m_initialObjectives) objective.gameObject.SetActive(true);
-
-		playerAIController.SetDestination(m_activeObjectives[0].position);
     }
     
     private void ResetSpawn() {
