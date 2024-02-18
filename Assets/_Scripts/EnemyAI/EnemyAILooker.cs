@@ -10,8 +10,7 @@ public class EnemyAILooker : MonoBehaviour {
 
 	private RayPerceptionSensorComponentBase rayPerceptionSensor;
 
-	private float viewRadius;
-    private float viewAngle;
+	private float viewRadius, viewAngle;
 
 	private Mesh viewMesh;
 	private MeshFilter viewMeshFilter;
@@ -50,27 +49,29 @@ public class EnemyAILooker : MonoBehaviour {
 	private void LateUpdate() => DrawFOV();
 
     private void DrawFOV() {
-        	int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
-		    float stepAngleSize = viewAngle / stepCount;
-		    List<Vector3> viewPoints = new List<Vector3>();
-		    ViewCastInfo oldViewCast = new ViewCastInfo();
-		    for (int i = 0; i <= stepCount; i++) {
-			    float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
-			    ViewCastInfo newViewCast = ViewCast(angle);
+        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
+		float stepAngleSize = viewAngle / stepCount;
+		List<Vector3> viewPoints = new List<Vector3>();
+		ViewCastInfo oldViewCast = new ViewCastInfo();
+        
+		for (int i = 0; i <= stepCount; i++) {
+			float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
+			ViewCastInfo newViewCast = ViewCast(angle);
 
-			    if (i > 0) {
-				    bool edgeDstThresholdExceeded = Mathf.Abs(oldViewCast.dst - newViewCast.dst) > edgeDistanceThreshold;
-				    if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeDstThresholdExceeded)) {
-					    EdgeInfo edge = FindEdge (oldViewCast, newViewCast);
-					    if (edge.pointA != Vector3.zero) viewPoints.Add (edge.pointA);
-						if (edge.pointB != Vector3.zero) viewPoints.Add (edge.pointB);
-					}
-
+			if (i > 0) {
+				bool edgeDstThresholdExceeded = Mathf.Abs(oldViewCast.dst - newViewCast.dst) > edgeDistanceThreshold;
+				if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && 
+                edgeDstThresholdExceeded)) {
+					EdgeInfo edge = FindEdge (oldViewCast, newViewCast);
+					if (edge.pointA != Vector3.zero) viewPoints.Add (edge.pointA);
+					if (edge.pointB != Vector3.zero) viewPoints.Add (edge.pointB);
 				}
 
-				viewPoints.Add (newViewCast.point);
-				oldViewCast = newViewCast;
 			}
+
+			viewPoints.Add (newViewCast.point);
+			oldViewCast = newViewCast;
+		}
 
 		int vertexCount = viewPoints.Count + 1;
 		Vector3[] vertices = new Vector3[vertexCount];

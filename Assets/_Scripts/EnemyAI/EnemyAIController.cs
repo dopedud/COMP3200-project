@@ -34,7 +34,7 @@ public class EnemyAIController : Agent {
     }
 	
     private void OnTriggerEnter(Collider other) {
-        if ((int)Mathf.Pow(2, other.gameObject.layer) != playerMask) return;
+        if ((1 << other.gameObject.layer | playerMask) != playerMask) return;
 
 		academy.EndEpisode(true);
     }

@@ -24,7 +24,8 @@ public class PlayerAIController : MonoBehaviour {
     }
 
 	private void OnTriggerEnter(Collider other) {
-		if ((int)Mathf.Pow(2, other.gameObject.layer) != objectiveMask) return;
+		if ((1 << other.gameObject.layer | objectiveMask) != objectiveMask) return;
+        
 		academy.ClearObjective(other.transform);
 	}
 

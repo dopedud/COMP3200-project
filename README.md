@@ -12,9 +12,9 @@ The steps to install and use ML agents in unity is sequenced below:
 
 1. install ML agents package from unity's package manager
 2. start command prompt from your folder
-3. (IMPORTANT) for release 20, install python version 3.9.*, use "py --version" to check python version
-(ALSO IMPORTANT) make sure to use py, or python, whichever corresponds to the python version you've installed
-if the command that corresponds is py, then use that to do the next steps
+3. (IMPORTANT) for release 20, install python version 3.9.*, enter `py --version` into cmd to check python version
+(ALSO IMPORTANT) make sure to use `py`, or `python`, whichever corresponds to the python version you've installed
+if the command that corresponds is `py`, then use that to do the next steps
 4. create and activate a virtual environment using python in your unity's project file via cmd
 - for creation: `py -m venv venv` 
 - for activation: `venv\Scripts\activate`
@@ -25,6 +25,6 @@ if the command that corresponds is py, then use that to do the next steps
 9. (OPTIONAL) `pip install packaging` in cmd (if there's a `ModuleNotFoundError`)
 10. test everything works by typing the command `mlagents-learn --help` in cmd
 
-## Author
+## Author and Developer
 
 - Abeed (theabeed01@gmail.com)
