@@ -3,7 +3,7 @@ behaviors:
         trainer_type: ppo
 
         # Trainer configurations common to all trainers
-        max_steps: 1e7
+        max_steps: 1e6
         time_horizon: 64
         summary_freq: 5000
         keep_checkpoints: 5

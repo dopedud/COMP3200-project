@@ -65,7 +65,7 @@ public class EnemyAIController : Agent {
         sensor.AddObservation(transform.localPosition.x);
 		sensor.AddObservation(transform.localPosition.z);
 
-		return;
+        sensor.AddObservation(transform.localRotation.y);
 
 		if (academy.initialObjectives.Length == 0) return;
 
