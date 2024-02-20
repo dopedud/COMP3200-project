@@ -4,6 +4,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using System.Linq;
+using Unity.VisualScripting;
 
 /// <summary>
 /// This class is the enemy AI script that holds the reinforcement learning mechanism to learn the behaviours of the
@@ -23,7 +24,7 @@ public class EnemyAIController : Agent {
 
 	[SerializeField] private float 
 	playerLostPunishment = .05f, 
-	playerFoundReward = 1, 
+	playerFoundReward = .025f, 
 	playerLoseReward = 5;
 
     private void Awake() {
@@ -51,10 +52,7 @@ public class EnemyAIController : Agent {
 	}
 
 	public override void OnActionReceived(ActionBuffers actions) {
-		if (looker.FindPlayer()) SetReward(playerFoundReward);
-		else SetReward(-playerLostPunishment);
-
-        Vector3 move = transform.forward * (actions.DiscreteActions[0] - 1);
+	    Vector3 move = transform.forward * (actions.DiscreteActions[0] - 1);
         Vector3 angle = transform.up * (actions.DiscreteActions[1] - 1);
 		
 		rigidbody.velocity = move * moveSpeed;
@@ -62,6 +60,9 @@ public class EnemyAIController : Agent {
     }
 
     public override void CollectObservations(VectorSensor sensor) {
+        if (looker.FindPlayer()) AddReward(playerFoundReward);
+		else AddReward(-playerLostPunishment);
+
         sensor.AddObservation(transform.localPosition.x);
 		sensor.AddObservation(transform.localPosition.z);
 
@@ -79,7 +80,7 @@ public class EnemyAIController : Agent {
 		transform.position = position;
 	}
 
-	public void Punish() => SetReward(-playerLoseReward);
-	public void Reward() => SetReward(playerLoseReward);
+	public void Punish() => AddReward(-playerLoseReward);
+	public void Reward() => AddReward(playerLoseReward);
 
 }
