@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MLEnvironmentScene.unity
+    path: Assets/Scenes/MLEnvironmentTrainingScene_Basic.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.ml-agents.settings: {fileID: 11400000, guid: 8c314106dea3a9446a8b99361d51b00a,

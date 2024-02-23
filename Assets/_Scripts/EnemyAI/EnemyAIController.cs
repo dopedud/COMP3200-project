@@ -5,6 +5,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.MLAgents.Policies;
 
 /// <summary>
 /// This class is the enemy AI script that holds the reinforcement learning mechanism to learn the behaviours of the
@@ -28,7 +29,7 @@ public class EnemyAIController : Agent {
 	playerLoseReward = 5;
 
     private void Awake() {
-		academy = transform.root.GetComponent<MLEnvManager>();
+		academy = transform.parent.GetComponent<MLEnvManager>();
 		rigidbody = GetComponent<Rigidbody>();
 
 		looker = GetComponentInChildren<EnemyAILooker>();

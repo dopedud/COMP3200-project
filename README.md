@@ -43,7 +43,7 @@ Before running training, the pre-requisite steps below are required to run to al
 
 1. (do this before running the pre-requisite steps) create a build of your training environment
 2. (IMPORTANT) make sure that the build consist only the ML agent and the training environment, and any other gameplay aspects in your build should be excluded
-3. for step 3 of running the pre-requisite steps, important additional parameters you can use are `--env=Builds\COMP3200-project` that determines where to locate and run the build (in this case it's in the `Builds` folder named `COMP3200-project`), `--num-envs=5` that determines how many seperate environments that should be run (in this case is 5, although higher numbers lead to higher usage of computational resources), and `--no-graphics` that runs the build without rendering the game
+3. for step 3 of running the pre-requisite steps, important additional parameters you can use are `--env=Builds\COMP3200-project` that determines where to locate and run the build (in this case it's in the `Builds` folder named `COMP3200-project`), `--num-envs=3` that determines how many number of seperate environments that should be run (in this case is 3, although higher numbers lead to higher usage of computational resources), and `--no-graphics` that runs the build without rendering the game
 4. (IMPORTANT) if your game or ML agent uses visual data to train, you might not want to use `--no-graphics` parameter as that will prevent the agent from training
 
 Once training is done, import `.onnx` file from `results\ppo` folder into `Assets` folder from your projects root folder.
