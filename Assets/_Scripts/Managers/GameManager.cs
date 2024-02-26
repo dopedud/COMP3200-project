@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager> {
 
-    protected override void Awake() {
-		base.Awake();
-
-		InputManager.Instance.ChangeActionMap(InputState.Gameplay);
+    private void Start() {
+        InputManager.Instance.ChangeInput(InputFrom.Player, InputState.Gameplay);
+        InputManager.Instance.ChangeInput(InputFrom.Enemy, InputState.Gameplay);
 	}
 
 }

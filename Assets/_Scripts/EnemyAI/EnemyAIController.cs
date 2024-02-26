@@ -46,10 +46,10 @@ public class EnemyAIController : Agent {
 	public override void Heuristic(in ActionBuffers actionsOut) {
 		ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
 
-		UserInput userInput = InputManager.Instance.userInput;
+		EnemyInput enemyInput = InputManager.Instance.enemyInput;
 
-		discreteActions[0] = (int)userInput.Gameplay.MovementY.ReadValue<float>() + 1;
-		discreteActions[1] = (int)userInput.Gameplay.Rotate.ReadValue<float>() + 1;
+		discreteActions[0] = (int)enemyInput.Gameplay.MovementY.ReadValue<float>() + 1;
+		discreteActions[1] = (int)enemyInput.Gameplay.Rotate.ReadValue<float>() + 1;
 	}
 
 	public override void OnActionReceived(ActionBuffers actions) {
