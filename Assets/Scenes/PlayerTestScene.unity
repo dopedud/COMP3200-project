@@ -473,15 +473,15 @@ MonoBehaviour:
   m_RecenterTarget: 0
   m_VerticalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse Y
+    m_SpeedMode: 1
+    m_MaxSpeed: 0.1875
+    m_AccelTime: 0
+    m_DecelTime: 0
+    m_InputAxisName: 
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -70
-    m_MaxValue: 70
+    m_MinValue: -85
+    m_MaxValue: 85
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -497,11 +497,11 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 300
-    m_AccelTime: 0.1
-    m_DecelTime: 0.1
-    m_InputAxisName: Mouse X
+    m_SpeedMode: 1
+    m_MaxSpeed: 0
+    m_AccelTime: 0
+    m_DecelTime: 0
+    m_InputAxisName: 
     m_InputAxisValue: 0
     m_InvertInput: 0
     m_MinValue: -180
@@ -665,7 +665,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952597308}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fb6c4863177f9784b9e66c6713692a7d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -812,7 +812,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de41049989021b4a9bb28efc39c208d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 50
+  drag: 10
+  aimSensitivity: 0.75
 --- !u!54 &1846762027
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -926,8 +928,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIndex: -1
-  AutoEnableInputs: 0
-  XYAxis: {fileID: 0}
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -4174656667047561989, guid: 39017a06369e03d4abe0ab6c118a71ed, type: 3}
   ZAxis: {fileID: 0}
 --- !u!4 &147968173120137541
 Transform:
@@ -1478,7 +1480,7 @@ GameObject:
   - component: {fileID: 6969695834273528201}
   - component: {fileID: 1150298978909654977}
   - component: {fileID: 6969695834273528202}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor-plan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1959,7 +1961,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3382538035242454439}
-  m_Material: {fileID: 13400000, guid: 5bfadbbde009b9748979da9f39d68d5e, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
