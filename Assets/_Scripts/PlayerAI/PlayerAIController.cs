@@ -6,28 +6,18 @@ using UnityEngine.AI;
 /// This is done via deterministic means, specifically via finite state machine. This could help diversify the actions
 /// the enemy AI could take in any given time.
 /// </summary>
-public class PlayerAIController : MonoBehaviour {
-
-	private MLEnvManager academy;
+public class PlayerAIController : Player {
 
 	private NavMeshAgent navMeshAgent;
 
-	[SerializeField] private LayerMask objectiveMask;
-
     private Animator animator;
 
-    private void Awake() {
-		academy = transform.root.GetComponent<MLEnvManager>();
+    protected override void Awake() {
+        base.Awake();
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
-
-	private void OnTriggerEnter(Collider other) {
-		if ((1 << other.gameObject.layer | objectiveMask) != objectiveMask) return;
-        
-		academy.ClearObjective(other.transform);
-	}
 
 	public void SetDestination(Vector3 position) {
         navMeshAgent.SetDestination(position);

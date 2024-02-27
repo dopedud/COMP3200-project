@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : Player {
 
     private PlayerInput playerInput;
 
     private Rigidbody rigidbody;
 
-    [SerializeField] private float moveSpeed = 50, drag = 10, aimSensitivity = .75f;
+    [SerializeField] private float moveSpeed = 50, runMultiplier = 1.5f, drag = 10, aimSensitivity = .75f;
 
     private CinemachinePOV cmCameraPOV;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
+        
         playerInput = InputManager.Instance.playerInput;
 
         rigidbody = GetComponent<Rigidbody>();
@@ -33,7 +35,10 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate() {
         Vector2 move = playerInput.Gameplay.Movement.ReadValue<Vector2>();
 
-        rigidbody.AddRelativeForce(new Vector3(move.x, 0, move.y) * moveSpeed);
+        if (playerInput.Gameplay.Run.IsPressed()) 
+        rigidbody.AddRelativeForce(moveSpeed * runMultiplier * new Vector3(move.x, 0, move.y));
+        else rigidbody.AddRelativeForce(moveSpeed * new Vector3(move.x, 0, move.y));
+
         rigidbody.AddForce(-new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z) * drag);
     }
 
