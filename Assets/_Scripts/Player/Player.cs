@@ -18,4 +18,7 @@ public abstract class Player : MonoBehaviour {
         academy.ClearObjective(other.transform);
 	}
 
+    public virtual void SetDestination(Vector3 position) {}
+    public virtual void Respawn(Vector3 position) {}
+
 }

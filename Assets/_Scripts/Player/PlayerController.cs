@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/// <summary>
+/// This class is a player controller script, that lets a real-world user control a player. 
+/// </summary>
 public class PlayerController : Player {
 
     private PlayerInput playerInput;
@@ -41,5 +44,7 @@ public class PlayerController : Player {
 
         rigidbody.AddForce(-new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z) * drag);
     }
+
+    public override void Respawn(Vector3 position) => transform.position = position;
 
 }

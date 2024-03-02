@@ -12,7 +12,7 @@ using UnityEngine.AI;
 /// </summary>
 public class MLEnvManager : MonoBehaviour {
 
-    private PlayerAIController playerAIController;
+    private Player player;
     private EnemyAIController enemyAIController;
 
     [SerializeField] private Transform[] playerSpawns;
@@ -25,7 +25,7 @@ public class MLEnvManager : MonoBehaviour {
 	public List<Transform> activeObjectives => m_activeObjectives;
 
     private void Start() {
-		playerAIController = GetComponentInChildren<PlayerAIController>();
+		player = GetComponentInChildren<Player>();
 		enemyAIController = GetComponentInChildren<EnemyAIController>();
 		
 		Initialise();
@@ -40,7 +40,7 @@ public class MLEnvManager : MonoBehaviour {
 
 		foreach (var objective in m_initialObjectives) objective.gameObject.SetActive(true);
 
-		playerAIController.SetDestination(m_activeObjectives[0].position);
+		player.SetDestination(m_activeObjectives[0].position);
     }
 
 	public void ClearObjective(Transform objective) {
@@ -50,7 +50,7 @@ public class MLEnvManager : MonoBehaviour {
 		}
 
 		if (m_activeObjectives.Count > 0) 
-		playerAIController.SetDestination(m_activeObjectives[0].position);
+		player.SetDestination(m_activeObjectives[0].position);
 		else EndEpisode(false);
 	}
 
@@ -64,7 +64,7 @@ public class MLEnvManager : MonoBehaviour {
     private void ResetSpawn() {
 		int playerSpawnIndex = UnityEngine.Random.Range(0, playerSpawns.Length);
 
-        playerAIController.Respawn(playerSpawns[playerSpawnIndex].position);
+        player.Respawn(playerSpawns[playerSpawnIndex].position);
         enemyAIController.Respawn(enemySpawn.position);
     }
 
