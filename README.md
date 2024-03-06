@@ -31,7 +31,7 @@ Before running training, the pre-requisite steps below are required to run to al
 
 1. on your projects root folder, type `cmd` in the folder directory bar
 2. activate python environment by typing `venv\Scripts\activate` into cmd
-3. type `mlagents-learn` to put the python learner into standby, you can use additional parameters like `--force` to overwrite, `--resume` to resume previous training data, and also if you have custom configuration for training, do `config\(your config).yaml` after `mlagents-learn` into cmd
+3. type `mlagents-learn` to put the python learner into standby, you can use additional parameters like `--force` to overwrite previous training data, `--resume` to resume previous training data, and `--run-id=(your run id)` to specify a different training session, and also if you have custom configuration for training, do `config\(your config).yaml` after `mlagents-learn` into cmd
 
 ### Via Unity Editor
 
