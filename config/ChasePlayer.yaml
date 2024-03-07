@@ -7,7 +7,7 @@ behaviors:
         time_horizon: 64
         summary_freq: 5000
         keep_checkpoints: 5
-        checkpoint_interval: 50000
+        checkpoint_interval: 100000
         threaded: false
         init_path: null
 

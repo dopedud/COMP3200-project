@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager> {
 
+    [SerializeField] InputState InputInitialiser;
+    [SerializeField] MenuState MenuInitialiser;
+
     private void Start() {
         InputManager.Instance.ChangeInput(InputFrom.Enemy, InputState.Gameplay);
 
-        InputManager.Instance.ChangeInput(InputFrom.Player, InputState.Gameplay);
-        MenuManager.Instance.ChangeMenu(MenuState.Gameplay);
+        InputManager.Instance.ChangeInput(InputFrom.Player, InputInitialiser);
+        MenuManager.Instance.ChangeMenu(MenuInitialiser);
 	}
 
 }

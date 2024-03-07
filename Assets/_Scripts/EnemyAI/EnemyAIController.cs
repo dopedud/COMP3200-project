@@ -23,10 +23,10 @@ public class EnemyAIController : Agent {
 
 	[SerializeField] private LayerMask playerMask;
 
-	[SerializeField] private float 
-	playerLostPunishment = .05f, 
-	playerFoundReward = .025f, 
-	playerLoseReward = 5;
+	[SerializeField] private float
+	playerFoundReward = .03f,
+	playerLostPunishment = .05f,
+	playerCapturedReward = 5;
 
     private void Awake() {
 		academy = transform.parent.GetComponent<MLEnvManager>();
@@ -81,7 +81,7 @@ public class EnemyAIController : Agent {
 		transform.position = position;
 	}
 
-	public void Punish() => AddReward(-playerLoseReward);
-	public void Reward() => AddReward(playerLoseReward);
+	public void Punish() => AddReward(-playerCapturedReward);
+	public void Reward() => AddReward(playerCapturedReward);
 
 }
