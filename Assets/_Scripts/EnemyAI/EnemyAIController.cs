@@ -69,12 +69,12 @@ public class EnemyAIController : Agent {
 
         sensor.AddObservation(transform.localRotation.y);
 
-		if (academy.initialObjectives.Length == 0) return;
+        // if (academy.InitialObjectives.Length == 0) return;
 
-		foreach (var objective in academy.initialObjectives) {
-			sensor.AddObservation(objective.localPosition);
-			sensor.AddObservation(objective.gameObject.activeInHierarchy);
-		}
+        // foreach (var objective in academy.InitialObjectives) {
+        //     sensor.AddObservation(objective.localPosition);
+        //     sensor.AddObservation(objective.gameObject.activeInHierarchy);
+        // }
     }
 
 	public void Respawn(Vector3 position) {

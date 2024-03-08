@@ -28,7 +28,7 @@ public class PlayerController : Player {
         cmCameraPOV.m_HorizontalAxis.m_MaxSpeed = 0;
     }
 
-    private void LateUpdate() {
+    private void Update() {
         Vector2 aim = playerInput.Gameplay.Aim.ReadValue<Vector2>();
         aim = aim * aimSensitivity / 4;
 

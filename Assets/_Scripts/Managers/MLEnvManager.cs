@@ -15,14 +15,12 @@ public class MLEnvManager : MonoBehaviour {
     private Player player;
     private EnemyAIController enemyAIController;
 
-    [SerializeField] private Transform[] playerSpawns;
-    [SerializeField] private Transform enemySpawn;
+    [SerializeField] private Transform[] subMLE;
 
-	[SerializeField] private Transform[] m_initialObjectives;
-	public Transform[] initialObjectives => m_initialObjectives;
-
-	private List<Transform> m_activeObjectives;
-	public List<Transform> activeObjectives => m_activeObjectives;
+	private Transform[] m_initialObjectives;
+    private List<Transform> m_activeObjectives;
+	public Transform[] InitialObjectives => m_initialObjectives;
+	public List<Transform> ActiveObjectives => m_activeObjectives;
 
     private void Start() {
 		player = GetComponentInChildren<Player>();
@@ -32,15 +30,22 @@ public class MLEnvManager : MonoBehaviour {
 	}
 
     public void Initialise() {
-        ResetSpawn();
+        int subMLEIndex = UnityEngine.Random.Range(0, subMLE.Length);
+        for (int i = 0; i < subMLE.Length; i++) {
+            if (i == subMLEIndex) subMLE[i].gameObject.SetActive(true);
+            else subMLE[i].gameObject.SetActive(false);
+        }
 
-		m_activeObjectives = m_initialObjectives.ToList();
+        ResetSpawn(subMLE[subMLEIndex]);
 
-		if (m_initialObjectives.Length == 0) return;
+        // TODO: do objectives on seperate floor plans
+        // if (m_initialObjectives.Length == 0) return;
 
-		foreach (var objective in m_initialObjectives) objective.gameObject.SetActive(true);
+        // m_activeObjectives = m_initialObjectives.ToList();
 
-		player.SetDestination(m_activeObjectives[0].position);
+        // foreach (var objective in m_initialObjectives) objective.gameObject.SetActive(true);
+
+        // player.SetDestination(m_activeObjectives[0].position);
     }
 
 	public void ClearObjective(Transform objective) {
@@ -61,11 +66,14 @@ public class MLEnvManager : MonoBehaviour {
 		enemyAIController.EndEpisode();
     }
     
-    private void ResetSpawn() {
+    private void ResetSpawn(Transform subMLE) {
+        EnemySpawn enemySpawn = subMLE.GetComponentInChildren<EnemySpawn>();
+        PlayerSpawn[] playerSpawns = subMLE.GetComponentsInChildren<PlayerSpawn>();
+
 		int playerSpawnIndex = UnityEngine.Random.Range(0, playerSpawns.Length);
 
-        player.Respawn(playerSpawns[playerSpawnIndex].position);
-        enemyAIController.Respawn(enemySpawn.position);
+        player.Respawn(playerSpawns[playerSpawnIndex].transform.position);
+        enemyAIController.Respawn(enemySpawn.transform.position);
     }
 
 }
