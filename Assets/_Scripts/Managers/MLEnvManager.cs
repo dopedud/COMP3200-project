@@ -15,6 +15,8 @@ public class MLEnvManager : MonoBehaviour {
     private Player player;
     private EnemyAIController enemyAIController;
 
+    [SerializeField] private bool randomiseRotation;
+
     [SerializeField] private Transform[] subMLE;
 
 	private Transform[] m_initialObjectives;
@@ -32,8 +34,13 @@ public class MLEnvManager : MonoBehaviour {
     public void Initialise() {
         int subMLEIndex = UnityEngine.Random.Range(0, subMLE.Length);
         for (int i = 0; i < subMLE.Length; i++) {
-            if (i == subMLEIndex) subMLE[i].gameObject.SetActive(true);
-            else subMLE[i].gameObject.SetActive(false);
+            if (i != subMLEIndex) subMLE[i].gameObject.SetActive(false);
+            else {
+                subMLE[i].gameObject.SetActive(true);
+
+                if (randomiseRotation) 
+                subMLE[i].RotateAround(transform.position, Vector3.up, UnityEngine.Random.Range(0f, 360f));
+            } 
         }
 
         ResetSpawn(subMLE[subMLEIndex]);
@@ -67,13 +74,14 @@ public class MLEnvManager : MonoBehaviour {
     }
     
     private void ResetSpawn(Transform subMLE) {
-        EnemySpawn enemySpawn = subMLE.GetComponentInChildren<EnemySpawn>();
+        EnemySpawn[] enemySpawns = subMLE.GetComponentsInChildren<EnemySpawn>();
         PlayerSpawn[] playerSpawns = subMLE.GetComponentsInChildren<PlayerSpawn>();
 
+        int enemySpawnsIndex = UnityEngine.Random.Range(0, enemySpawns.Length);
 		int playerSpawnIndex = UnityEngine.Random.Range(0, playerSpawns.Length);
 
+        enemyAIController.Respawn(enemySpawns[enemySpawnsIndex].transform.position);
         player.Respawn(playerSpawns[playerSpawnIndex].transform.position);
-        enemyAIController.Respawn(enemySpawn.transform.position);
     }
 
 }

@@ -1,10 +1,7 @@
 using UnityEngine;
-using UnityEngine.AI;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using System.Linq;
-using Unity.VisualScripting;
 using Unity.MLAgents.Policies;
 
 /// <summary>
@@ -28,11 +25,19 @@ public class EnemyAIController : Agent {
 	playerLostPunishment = .05f,
 	playerCapturedReward = 5;
 
+    [SerializeField] int initialVectorObservationSize = 3;
+
+    private BehaviorParameters behaviorParameters;
+
     private void Awake() {
 		academy = transform.parent.GetComponent<MLEnvManager>();
 		rigidbody = GetComponent<Rigidbody>();
 
 		looker = GetComponentInChildren<EnemyAILooker>();
+
+        behaviorParameters = GetComponent<BehaviorParameters>();
+        behaviorParameters.BrainParameters.VectorObservationSize = 
+        initialVectorObservationSize;
     }
 	
     private void OnTriggerEnter(Collider other) {
