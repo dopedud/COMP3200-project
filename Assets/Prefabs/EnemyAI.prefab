@@ -281,6 +281,7 @@ MonoBehaviour:
   playerFoundReward: 0.03
   playerLostPunishment: 0.05
   playerCapturedReward: 5
+  initialVectorObservationSize: 3
 --- !u!114 &6321201662396063314
 MonoBehaviour:
   m_ObjectHideFlags: 0

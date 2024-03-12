@@ -23,10 +23,11 @@ public class PlayerAIController : Player {
         navMeshAgent.SetDestination(position);
     }
 
-	public override void Respawn(Vector3 position) {
-		navMeshAgent.enabled = false;
-		transform.position = position;
-		navMeshAgent.enabled = true;
-	}
+    public override void Respawn(Vector3 position) {
+        float offset = 0.05f;
+        Vector3 pos = new(position.x, position.y + offset, position.z);
+        // if (NavMesh.SamplePosition(position, out NavMeshHit hit, 1, NavMesh.AllAreas))
+        Debug.Log(navMeshAgent.Warp(pos));
+    }
 
 }

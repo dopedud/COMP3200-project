@@ -5,8 +5,8 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Policies;
 
 /// <summary>
-/// This class is the enemy AI script that holds the reinforcement learning mechanism to learn the behaviours of the
-/// player during training.
+/// This class is the enemy AI script that holds the reinforcement learning mechanism to learn how to achieve its
+/// objective, which is to capture the player, and further optimise its strategy
 /// </summary>
 public class EnemyAIController : Agent {
 
@@ -16,7 +16,7 @@ public class EnemyAIController : Agent {
 
 	private EnemyAILooker looker;
 
-	[SerializeField] private float moveSpeed = 2.5f, rotateSpeed = 2.5f;
+	[SerializeField] private float moveSpeed = 6, rotateSpeed = 2.5f;
 
 	[SerializeField] private LayerMask playerMask;
 

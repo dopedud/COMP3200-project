@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// This class is the main script for controlling reinforcement learning in the environment. It initialises player and
@@ -25,21 +21,19 @@ public class MLEnvManager : MonoBehaviour {
 	public List<Transform> ActiveObjectives => m_activeObjectives;
 
     private void Start() {
-		player = GetComponentInChildren<Player>();
-		enemyAIController = GetComponentInChildren<EnemyAIController>();
-		
-		Initialise();
-	}
+        player = GetComponentInChildren<Player>();
+        enemyAIController = GetComponentInChildren<EnemyAIController>();
+    }
 
     public void Initialise() {
-        int subMLEIndex = UnityEngine.Random.Range(0, subMLE.Length);
+        int subMLEIndex = Random.Range(0, subMLE.Length);
         for (int i = 0; i < subMLE.Length; i++) {
             if (i != subMLEIndex) subMLE[i].gameObject.SetActive(false);
             else {
                 subMLE[i].gameObject.SetActive(true);
 
                 if (randomiseRotation) 
-                subMLE[i].RotateAround(transform.position, Vector3.up, UnityEngine.Random.Range(0f, 360f));
+                subMLE[i].rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
             } 
         }
 
@@ -77,10 +71,10 @@ public class MLEnvManager : MonoBehaviour {
         EnemySpawn[] enemySpawns = subMLE.GetComponentsInChildren<EnemySpawn>();
         PlayerSpawn[] playerSpawns = subMLE.GetComponentsInChildren<PlayerSpawn>();
 
-        int enemySpawnsIndex = UnityEngine.Random.Range(0, enemySpawns.Length);
-		int playerSpawnIndex = UnityEngine.Random.Range(0, playerSpawns.Length);
+        int enemySpawnIndex = Random.Range(0, enemySpawns.Length);
+		int playerSpawnIndex = Random.Range(0, playerSpawns.Length);
 
-        enemyAIController.Respawn(enemySpawns[enemySpawnsIndex].transform.position);
+        enemyAIController.Respawn(enemySpawns[enemySpawnIndex].transform.position);
         player.Respawn(playerSpawns[playerSpawnIndex].transform.position);
     }
 
