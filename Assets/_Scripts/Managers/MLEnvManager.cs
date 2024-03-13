@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,12 +21,14 @@ public class MLEnvManager : MonoBehaviour {
 	public Transform[] InitialObjectives => m_initialObjectives;
 	public List<Transform> ActiveObjectives => m_activeObjectives;
 
-    private void Start() {
+    private void Awake() {
         player = GetComponentInChildren<Player>();
         enemyAIController = GetComponentInChildren<EnemyAIController>();
     }
 
-    public void Initialise() {
+    public void Initialise() => StartCoroutine(InitialiseCoroutine());
+
+    private IEnumerator InitialiseCoroutine() {
         int subMLEIndex = Random.Range(0, subMLE.Length);
         for (int i = 0; i < subMLE.Length; i++) {
             if (i != subMLEIndex) subMLE[i].gameObject.SetActive(false);
@@ -33,9 +36,11 @@ public class MLEnvManager : MonoBehaviour {
                 subMLE[i].gameObject.SetActive(true);
 
                 if (randomiseRotation) 
-                subMLE[i].rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                subMLE[i].rotation = Quaternion.Euler(0, Random.Range(-180f, 180f), 0);
             } 
         }
+
+        yield return null;
 
         ResetSpawn(subMLE[subMLEIndex]);
 

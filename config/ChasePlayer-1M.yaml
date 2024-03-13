@@ -17,13 +17,13 @@ behaviors:
             batch_size: 1024
             buffer_size: 10240
             learning_rate: 3.0e-4
-            learning_rate_schedule: linear
+            learning_rate_schedule: constant
 
             # PPO-specific hyperparameters
             beta: 5.0e-3
-            beta_schedule: constant
+            #beta_schedule: learning_rate_schedule
             epsilon: 0.2
-            epsilon_schedule: linear
+            #epsilon_schedule: learning_rate_schedule
             lambd: 0.95
             num_epoch: 3
             shared_critic: false
@@ -33,17 +33,17 @@ behaviors:
             vis_encode_type: simple
             conditioning_type: hyper
             normalize: false
-            hidden_units: 128
+            hidden_units: 384
             num_layers: 4
 
         reward_signals:
 
-            # environment reward (default)
+            # extrinsic reward
             extrinsic:
                 strength: 1.0
                 gamma: 0.99
 
-            # curiosity module
+            # curiosity intrinsic reward
             curiosity:
                 strength: 0.1
-                gamma: 0.8
+                gamma: 0.99

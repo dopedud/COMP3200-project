@@ -24,10 +24,7 @@ public class PlayerAIController : Player {
     }
 
     public override void Respawn(Vector3 position) {
-        float offset = 0.05f;
-        Vector3 pos = new(position.x, position.y + offset, position.z);
-        // if (NavMesh.SamplePosition(position, out NavMeshHit hit, 1, NavMesh.AllAreas))
-        Debug.Log(navMeshAgent.Warp(pos));
+        Debug.Log(navMeshAgent.Warp(position));
     }
 
 }
