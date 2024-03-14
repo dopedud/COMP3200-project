@@ -15,7 +15,7 @@ public abstract class Player : MonoBehaviour {
     protected virtual void OnTriggerEnter(Collider other) {
         if ((1 << other.gameObject.layer | objectiveMask) != objectiveMask) return;
         
-        academy.ClearObjective(other.transform);
+        academy.ClearObjective(other.gameObject);
 	}
 
     public virtual void SetDestination(Vector3 position) {}

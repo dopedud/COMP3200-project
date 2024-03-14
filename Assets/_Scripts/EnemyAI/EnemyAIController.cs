@@ -3,6 +3,8 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Policies;
+using UnityEngine.AI;
+using System.Collections.Generic;
 
 /// <summary>
 /// This class is the enemy AI script that holds the reinforcement learning mechanism to learn how to achieve its
@@ -13,6 +15,9 @@ public class EnemyAIController : Agent {
 	private MLEnvManager academy;
 
 	private new Rigidbody rigidbody;
+
+    [SerializeField] private GameObject navMeshAgentPrefab;
+    private List<NavMeshAgent> navMeshAgents;
 
 	private EnemyAILooker looker;
 
@@ -30,8 +35,18 @@ public class EnemyAIController : Agent {
     private BehaviorParameters behaviorParameters;
 
     private void Awake() {
+        navMeshAgents = new List<NavMeshAgent>();
+
 		academy = transform.parent.GetComponent<MLEnvManager>();
 		rigidbody = GetComponent<Rigidbody>();
+
+        navMeshAgents.Add(navMeshAgentPrefab.GetComponent<NavMeshAgent>());
+
+        for (int i = 0; i < 1; i++) {
+            var NMAgo = Instantiate(navMeshAgentPrefab, gameObject.transform);
+
+            navMeshAgents.Add(NMAgo.GetComponent<NavMeshAgent>());
+        }
 
 		looker = GetComponentInChildren<EnemyAILooker>();
 
@@ -68,6 +83,8 @@ public class EnemyAIController : Agent {
     public override void CollectObservations(VectorSensor sensor) {
         if (looker.FindPlayer()) AddReward(playerFoundReward);
 		else AddReward(-playerLostPunishment);
+
+        //TODO: 
 
         sensor.AddObservation(transform.localPosition.x);
 		sensor.AddObservation(transform.localPosition.z);

@@ -248,7 +248,7 @@ Transform:
   m_GameObject: {fileID: 4316064731284176475}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -273,6 +273,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
+  navMeshAgentPrefab: {fileID: 990887107337483821, guid: c2607b7b4366dc043ac717244a2f4947,
+    type: 3}
   moveSpeed: 6
   rotateSpeed: 2.5
   playerMask:
@@ -350,7 +352,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!65 &1218755716688454574
