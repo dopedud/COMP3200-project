@@ -8,7 +8,7 @@ public class GameManager : PersistentSingleton<GameManager> {
     [SerializeField] MenuState MenuInitialiser;
 
     private void Start() {
-        // InputManager.Instance.ChangeInput(InputFrom.Enemy, InputState.Gameplay);
+        InputManager.Instance.ChangeInput(InputFrom.Enemy, InputState.Gameplay);
 
         InputManager.Instance.ChangeInput(InputFrom.Player, InputInitialiser);
         MenuManager.Instance.ChangeMenu(MenuInitialiser);

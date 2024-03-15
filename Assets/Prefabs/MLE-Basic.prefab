@@ -154,7 +154,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522419059797229426}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 5060175089818644230}
   - component: {fileID: 5294398326941477939}
   m_Layer: 0
-  m_Name: MLE_Basic
+  m_Name: MLE-Basic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -380,6 +380,8 @@ MonoBehaviour:
   randomiseRotation: 0
   subMLE:
   - {fileID: 7275447406554896341}
+  objectivePrefab: {fileID: 3839681169679844876, guid: 89b277019efe4794a9045c95f310b970,
+    type: 3}
 --- !u!1 &4330098402548923052
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +613,7 @@ GameObject:
   - component: {fileID: 2774381986521093976}
   - component: {fileID: 4912171939685280427}
   m_Layer: 0
-  m_Name: enemy-spawn
+  m_Name: enemy-spawn.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

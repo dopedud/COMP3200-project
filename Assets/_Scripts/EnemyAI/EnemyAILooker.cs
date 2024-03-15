@@ -8,7 +8,8 @@ public class EnemyAILooker : MonoBehaviour {
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask obstacleMask;
 
-	private RayPerceptionSensorComponentBase rayPerceptionSensor;
+	private RayPerceptionSensorComponent3D rayPerceptionSensor;
+	public RayPerceptionSensorComponent3D RayPerceptionSensor => rayPerceptionSensor;
 
 	private float viewRadius, viewAngle;
 
@@ -30,29 +31,13 @@ public class EnemyAILooker : MonoBehaviour {
         viewMeshFilter.mesh = viewMesh;
 	}
 
-	public bool FindPlayer() {
-        Collider[] targets = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
-
-		if (targets.Length == 0) return false;
-
-        Transform player = targets[0].transform;
-
-        float dist = Vector3.Distance(player.position, transform.position);
-        Vector3 dir = (player.position - transform.position).normalized;
-
-        if (Vector3.Angle(transform.forward, dir) > viewAngle / 2) return false;
-        if (Physics.Raycast(transform.position, dir, dist, obstacleMask)) return false;
-
-		return true;
-    }
-
 	private void LateUpdate() => DrawFOV();
 
     private void DrawFOV() {
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
 		float stepAngleSize = viewAngle / stepCount;
-		List<Vector3> viewPoints = new List<Vector3>();
-		ViewCastInfo oldViewCast = new ViewCastInfo();
+		List<Vector3> viewPoints = new();
+		ViewCastInfo oldViewCast = new();
         
 		for (int i = 0; i <= stepCount; i++) {
 			float angle = transform.eulerAngles.y - viewAngle / 2 + stepAngleSize * i;
@@ -95,7 +80,7 @@ public class EnemyAILooker : MonoBehaviour {
 		viewMesh.RecalculateNormals();
     }
 
-    public Vector3 DirFromAngle(float angle, bool global) {
+    private Vector3 DirFromAngle(float angle, bool global) {
         if (!global) angle += transform.eulerAngles.y;
         return new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad));
     }
@@ -132,7 +117,7 @@ public class EnemyAILooker : MonoBehaviour {
 		else return new ViewCastInfo (false, transform.position + dir * viewRadius, viewRadius, globalAngle);
 	}
 
-	public struct ViewCastInfo {
+	private struct ViewCastInfo {
 		public bool hit;
 		public Vector3 point;
 		public float dst;
@@ -146,7 +131,7 @@ public class EnemyAILooker : MonoBehaviour {
 		}
 	}
 
-	public struct EdgeInfo {
+	private struct EdgeInfo {
 		public Vector3 pointA;
 		public Vector3 pointB;
 

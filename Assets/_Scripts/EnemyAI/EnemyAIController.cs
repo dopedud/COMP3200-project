@@ -5,6 +5,7 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Policies;
 using UnityEngine.AI;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// This class is the enemy AI script that holds the reinforcement learning mechanism to learn how to achieve its
@@ -15,9 +16,6 @@ public class EnemyAIController : Agent {
 	private MLEnvManager academy;
 
 	private new Rigidbody rigidbody;
-
-    [SerializeField] private GameObject navMeshAgentPrefab;
-    private List<NavMeshAgent> navMeshAgents;
 
 	private EnemyAILooker looker;
 
@@ -30,8 +28,12 @@ public class EnemyAIController : Agent {
 	playerLostPunishment = .05f,
 	playerCapturedReward = 5;
 
+    [SerializeField] private GameObject navMeshAgentPrefab;
+    private List<NavMeshAgent> navMeshAgents;
+
     [SerializeField] int initialVectorObservationSize = 3;
 
+    private BufferSensorComponent bufferSensor;
     private BehaviorParameters behaviorParameters;
 
     private void Awake() {
@@ -40,19 +42,11 @@ public class EnemyAIController : Agent {
 		academy = transform.parent.GetComponent<MLEnvManager>();
 		rigidbody = GetComponent<Rigidbody>();
 
-        navMeshAgents.Add(navMeshAgentPrefab.GetComponent<NavMeshAgent>());
-
-        for (int i = 0; i < 1; i++) {
-            var NMAgo = Instantiate(navMeshAgentPrefab, gameObject.transform);
-
-            navMeshAgents.Add(NMAgo.GetComponent<NavMeshAgent>());
-        }
-
 		looker = GetComponentInChildren<EnemyAILooker>();
 
+        bufferSensor = GetComponent<BufferSensorComponent>();
         behaviorParameters = GetComponent<BehaviorParameters>();
-        behaviorParameters.BrainParameters.VectorObservationSize = 
-        initialVectorObservationSize;
+        behaviorParameters.BrainParameters.VectorObservationSize = initialVectorObservationSize;
     }
 	
     private void OnTriggerEnter(Collider other) {
@@ -61,7 +55,14 @@ public class EnemyAIController : Agent {
 		academy.EndEpisode(true);
     }
 
-	public override void OnEpisodeBegin() => academy.Initialise();
+	public override void OnEpisodeBegin() { 
+        academy.Initialise(); 
+
+        for (int i = 0; i < academy.InitialObjectives.Count; i++) {
+            var NMAgo = Instantiate(navMeshAgentPrefab, gameObject.transform);
+            navMeshAgents.Add(NMAgo.GetComponent<NavMeshAgent>());
+        }
+    }
 
 	public override void Heuristic(in ActionBuffers actionsOut) {
 		ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
@@ -81,22 +82,31 @@ public class EnemyAIController : Agent {
     }
 
     public override void CollectObservations(VectorSensor sensor) {
-        if (looker.FindPlayer()) AddReward(playerFoundReward);
-		else AddReward(-playerLostPunishment);
+        var rayOutputs = looker.RayPerceptionSensor.RaySensor.RayPerceptionOutput.RayOutputs;
 
-        //TODO: 
+        if (rayOutputs.Any(rayOutput => rayOutput.HitTagIndex == 0)) AddReward(playerFoundReward);
+		else AddReward(-playerLostPunishment);
 
         sensor.AddObservation(transform.localPosition.x);
 		sensor.AddObservation(transform.localPosition.z);
 
         sensor.AddObservation(transform.localRotation.y);
 
-        // if (academy.InitialObjectives.Length == 0) return;
+        if (academy.InitialObjectives.Count == 0) return;
 
-        // foreach (var objective in academy.InitialObjectives) {
-        //     sensor.AddObservation(objective.localPosition);
-        //     sensor.AddObservation(objective.gameObject.activeInHierarchy);
-        // }
+        foreach (var objective in academy.InitialObjectives) {
+            NavMeshPath path = new();
+
+            if (!NavMesh.CalculatePath(transform.position, objective.transform.position, 
+            NavMesh.AllAreas, path)) continue;
+
+            bufferSensor.AppendObservation(new float[] { 
+                path.corners[0].x - transform.position.x,
+                path.corners[0].y - transform.position.y,
+                path.corners[0].z - transform.position.z,
+                objective.activeInHierarchy ? 1 : 0
+            });
+        }
     }
 
 	public void Respawn(Vector3 position) {
