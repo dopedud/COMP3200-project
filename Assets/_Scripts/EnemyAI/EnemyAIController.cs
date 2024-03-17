@@ -22,11 +22,16 @@ public class EnemyAIController : Agent {
 	[SerializeField] private float moveSpeed = 6, rotateSpeed = 2.5f;
 
 	[SerializeField] private LayerMask playerMask;
+    [SerializeField] private string EnemyNavMeshLayerName = "Enemy";
 
 	[SerializeField] private float
 	playerFoundReward = .03f,
 	playerLostPunishment = .05f,
 	playerCapturedReward = 5;
+
+    [SerializeField] private float
+    explorationRadius = 2,
+    explorationReward = .07f;
 
     [SerializeField] private GameObject navMeshAgentPrefab;
     private List<NavMeshAgent> navMeshAgents;
@@ -90,7 +95,7 @@ public class EnemyAIController : Agent {
         sensor.AddObservation(transform.localPosition.x);
 		sensor.AddObservation(transform.localPosition.z);
 
-        sensor.AddObservation(transform.localRotation.y);
+        sensor.AddObservation(transform.rotation.y);
 
         if (academy.InitialObjectives.Count == 0) return;
 
@@ -98,7 +103,7 @@ public class EnemyAIController : Agent {
             NavMeshPath path = new();
 
             if (!NavMesh.CalculatePath(transform.position, objective.transform.position, 
-            NavMesh.AllAreas, path)) continue;
+            NavMesh.GetAreaFromName(EnemyNavMeshLayerName), path)) continue;
 
             bufferSensor.AppendObservation(new float[] { 
                 path.corners[0].x - transform.position.x,
