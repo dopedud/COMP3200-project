@@ -24,7 +24,7 @@ public class PlayerAIController : Player {
     }
 
     public override void Respawn(Vector3 position) {
-        Debug.Log(navMeshAgent.Warp(position));
+        navMeshAgent.Warp(position);
     }
 
 }

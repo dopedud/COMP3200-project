@@ -274,6 +274,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 1000
+  collider: {fileID: 7678298708797084663}
   moveSpeed: 6
   rotateSpeed: 2.5
   playerMask:
@@ -283,6 +284,9 @@ MonoBehaviour:
   playerFoundReward: 0.03
   playerLostPunishment: 0.05
   playerCapturedReward: 5
+  explorationRadius: 1.8
+  explorationReward: 0.15
+  explorationStepSize: 10
   navMeshAgentPrefab: {fileID: 990887107337483821, guid: c2607b7b4366dc043ac717244a2f4947,
     type: 3}
   initialVectorObservationSize: 3

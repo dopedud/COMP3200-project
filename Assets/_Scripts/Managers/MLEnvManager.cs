@@ -67,8 +67,8 @@ public class MLEnvManager : MonoBehaviour {
 	}
 
 	public void EndEpisode(bool hasCapturedPlayer) {
-		if (hasCapturedPlayer) enemyAIController.Reward();
-		else enemyAIController.Punish();
+		if (hasCapturedPlayer) enemyAIController.PlayerCapturedReward();
+		else enemyAIController.PlayerWinPunish();
 
 		enemyAIController.EndEpisode();
     }
