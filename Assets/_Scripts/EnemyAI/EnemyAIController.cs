@@ -23,6 +23,8 @@ public class EnemyAIController : Agent {
 
     private EnemyAILooker looker;
 
+    private EnemyInput enemyInput;
+
     private Vector3 previousPosition;
 
     [SerializeField] private float moveSpeed = 6, rotateSpeed = 2.5f;
@@ -58,6 +60,7 @@ public class EnemyAIController : Agent {
         colliderComponent = collider.GetComponent<CapsuleCollider>();
 
         looker = GetComponentInChildren<EnemyAILooker>();
+        enemyInput = InputManager.Instance.enemyInput;
 
         bufferSensor = GetComponent<BufferSensorComponent>();
         behaviorParameters = GetComponent<BehaviorParameters>();
@@ -71,18 +74,11 @@ public class EnemyAIController : Agent {
     }
 
     public override void OnEpisodeBegin() { 
-        academy.Initialise(); 
-
-        for (int i = 0; i < academy.InitialObjectives.Count; i++) {
-            var NMAgo = Instantiate(navMeshAgentPrefab, gameObject.transform);
-            navMeshAgents.Add(NMAgo.GetComponent<NavMeshAgent>());
-        }
+        academy.Initialise();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
-
-        EnemyInput enemyInput = InputManager.Instance.enemyInput;
 
         discreteActions[0] = (int)enemyInput.Gameplay.MovementY.ReadValue<float>() + 1;
         discreteActions[1] = (int)enemyInput.Gameplay.Rotate.ReadValue<float>() + 1;
@@ -114,8 +110,6 @@ public class EnemyAIController : Agent {
                 out RaycastHit hit, explorationRadius, ~0, QueryTriggerInteraction.Ignore)) {
                     AddReward(explorationReward);
                 } else {
-                    Debug.Log(hit.collider.gameObject.layer);
-
                     var hitGO = hit.collider.gameObject;
                     if ((1 << hitGO.layer | 1 << collider.layer) != 1 << collider.layer) {
                         AddReward(explorationReward);
@@ -141,12 +135,17 @@ public class EnemyAIController : Agent {
             if (!NavMesh.CalculatePath(transform.position, objective.transform.position, 
             NavMesh.GetAreaFromName(EnemyNavMeshLayerName), path)) continue;
 
-            bufferSensor.AppendObservation(new float[] { 
-                path.corners[0].x - transform.position.x,
-                path.corners[0].y - transform.position.y,
-                path.corners[0].z - transform.position.z,
-                objective.activeInHierarchy ? 1 : 0
-            });
+            try {
+                var navDirection = path.corners[1] - transform.position;
+                Debug.DrawRay(transform.position, navDirection, Color.cyan, .1f);
+
+                bufferSensor.AppendObservation(new float[] { 
+                    navDirection.x,
+                    navDirection.y,
+                    navDirection.z,
+                    objective.activeInHierarchy ? 1 : 0
+                });
+            } catch (IndexOutOfRangeException) {}
         }
     }
 

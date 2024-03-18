@@ -9,7 +9,7 @@ public abstract class Player : MonoBehaviour {
     [SerializeField] protected LayerMask objectiveMask;
 
     protected virtual void Awake() {
-        academy = transform.root.GetComponent<MLEnvManager>();
+        academy = transform.parent.GetComponent<MLEnvManager>();
     }
 
     protected virtual void OnTriggerEnter(Collider other) {

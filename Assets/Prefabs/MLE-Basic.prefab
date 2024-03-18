@@ -231,7 +231,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGeometry: 0
-  m_DefaultArea: 0
+  m_DefaultArea: 4
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: f1b6dd95daf3dc0469462e81ac4d818c, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f05c7906ea1ea564397d27464d9f4fe0, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &3703764406877889925
 GameObject:

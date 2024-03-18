@@ -3966,6 +3966,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MLE-Intermediate
       objectReference: {fileID: 0}
+    - target: {fileID: 8395670312055037370, guid: 7725299b0d1e33341b53bc43bb4ad703,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 2388c1385375e7a42b2e3a792984af5e,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

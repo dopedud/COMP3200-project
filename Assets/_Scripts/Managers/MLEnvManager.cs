@@ -15,6 +15,8 @@ public class MLEnvManager : MonoBehaviour {
 
     [SerializeField] private bool randomiseRotation;
 
+    [SerializeField] private int objectiveSpawnsAmount;
+
     [SerializeField] private Transform[] subMLE;
 
     [SerializeField] private GameObject objectivePrefab;
@@ -53,24 +55,27 @@ public class MLEnvManager : MonoBehaviour {
         yield return null;
 
         ResetSpawn(subMLE[subMLEIndex]);
+
+        if (activeObjectives.Count > 0) 
+        player.SetDestination(activeObjectives[0].transform.position);
     }
 
-	public void ClearObjective(GameObject objective) {
-		if (activeObjectives.Contains(objective)) {
-			activeObjectives.Remove(objective);
+    public void ClearObjective(GameObject objective) {
+        if (activeObjectives.Contains(objective)) {
+            activeObjectives.Remove(objective);
             objective.SetActive(false);
-		}
+        }
 
-		if (activeObjectives.Count > 0) 
-		player.SetDestination(activeObjectives[0].transform.position);
-		else EndEpisode(false);
-	}
+        if (activeObjectives.Count > 0) 
+        player.SetDestination(activeObjectives[0].transform.position);
+        else EndEpisode(false);
+    }
 
-	public void EndEpisode(bool hasCapturedPlayer) {
-		if (hasCapturedPlayer) enemyAIController.PlayerCapturedReward();
-		else enemyAIController.PlayerWinPunish();
+    public void EndEpisode(bool hasCapturedPlayer) {
+        if (hasCapturedPlayer) enemyAIController.PlayerCapturedReward();
+        else enemyAIController.PlayerWinPunish();
 
-		enemyAIController.EndEpisode();
+        enemyAIController.EndEpisode();
     }
     
     private void ResetSpawn(Transform subMLE) {
@@ -79,14 +84,21 @@ public class MLEnvManager : MonoBehaviour {
         ObjectiveSpawn[] objectiveSpawns = subMLE.GetComponentsInChildren<ObjectiveSpawn>();
 
         int enemySpawnIndex = Random.Range(0, enemySpawns.Length);
-		int playerSpawnIndex = Random.Range(0, playerSpawns.Length);
+        int playerSpawnIndex = Random.Range(0, playerSpawns.Length);
 
         enemyAIController.Respawn(enemySpawns[enemySpawnIndex].transform.position);
         player.Respawn(playerSpawns[playerSpawnIndex].transform.position);
 
-        foreach (var objectiveSpawn in objectiveSpawns) {
+        List<int> objectiveSpawned = new();
+        for (int i = 0; i < (objectiveSpawnsAmount < objectiveSpawns.Length ? 
+        objectiveSpawnsAmount : objectiveSpawns.Length); i++) {
+            int objectiveSpawnIndex = Random.Range(0, objectiveSpawns.Length);
+            while (objectiveSpawned.Contains(objectiveSpawnIndex)) 
+            objectiveSpawnIndex = Random.Range(0, objectiveSpawns.Length);
+            objectiveSpawned.Add(objectiveSpawnIndex);
+
             var objectiveGO = Instantiate(objectivePrefab, 
-            objectiveSpawn.transform.position, Quaternion.identity, gameObject.transform);
+            objectiveSpawns[objectiveSpawnIndex].transform.position, Quaternion.identity, gameObject.transform);
 
             initialObjectives.Add(objectiveGO);
             activeObjectives.Add(objectiveGO);
