@@ -27,8 +27,11 @@
 # Python environment directory (folder name depends on user)
 venv/
 
-# Reinforcement learning model results folder
-results/
+# Reinforcement learning model results folder (exce)
+results/ChasePlayer-*/ChasePlayer/
+results/ChasePlayer-*/run_logs/
+results/ChasePlayer-*/configuration.yaml
+!results/ChasePlayer-*/ChasePlayer.onnx
 
 # Visual Studio cache directory
 .vs/
