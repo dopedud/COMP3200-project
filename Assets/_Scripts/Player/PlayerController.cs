@@ -18,6 +18,8 @@ public class PlayerController : Player {
 
     protected override void Awake() {
         base.Awake();
+
+        Application.targetFrameRate = -1;
         
         playerInput = InputManager.Instance.playerInput;
 

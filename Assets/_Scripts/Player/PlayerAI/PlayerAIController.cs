@@ -27,4 +27,8 @@ public class PlayerAIController : Player {
         navMeshAgent.Warp(position);
     }
 
+    public bool GetPathStale() {
+        return navMeshAgent.hasPath;
+    }
+
 }

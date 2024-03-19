@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ using UnityEngine;
 /// their resetting position. It also manages what to do when an episode ends.
 /// </summary>
 public class MLEnvManager : MonoBehaviour {
+
+    public event Action OnResetSpawn, OnPlayerCapturedObjective;
 
     private Player player;
     private EnemyAIController enemyAIController;
@@ -21,9 +24,9 @@ public class MLEnvManager : MonoBehaviour {
 
     [SerializeField] private GameObject objectivePrefab;
 
-    private List<GameObject> initialObjectives;
+    private List<GameObject> initialObjectives, activeObjectives;
     public List<GameObject> InitialObjectives => initialObjectives;
-    private List<GameObject> activeObjectives;
+    public List<GameObject> ActiveObjectives => activeObjectives;
 
     private void Awake() {
         player = GetComponentInChildren<Player>();
@@ -41,14 +44,14 @@ public class MLEnvManager : MonoBehaviour {
         initialObjectives.Clear();
         activeObjectives.Clear();
 
-        int subMLEIndex = Random.Range(0, subMLE.Length);
+        int subMLEIndex = UnityEngine.Random.Range(0, subMLE.Length);
         for (int i = 0; i < subMLE.Length; i++) {
             if (i != subMLEIndex) subMLE[i].gameObject.SetActive(false);
             else {
                 subMLE[i].gameObject.SetActive(true);
 
                 if (randomiseRotation) 
-                subMLE[i].rotation = Quaternion.Euler(0, Random.Range(-180f, 180f), 0);
+                subMLE[i].rotation = Quaternion.Euler(0, UnityEngine.Random.Range(-180f, 180f), 0);
             } 
         }
 
@@ -64,6 +67,8 @@ public class MLEnvManager : MonoBehaviour {
         if (activeObjectives.Contains(objective)) {
             activeObjectives.Remove(objective);
             objective.SetActive(false);
+
+            OnPlayerCapturedObjective?.Invoke();
         }
 
         if (activeObjectives.Count > 0) 
@@ -83,8 +88,8 @@ public class MLEnvManager : MonoBehaviour {
         PlayerSpawn[] playerSpawns = subMLE.GetComponentsInChildren<PlayerSpawn>();
         ObjectiveSpawn[] objectiveSpawns = subMLE.GetComponentsInChildren<ObjectiveSpawn>();
 
-        int enemySpawnIndex = Random.Range(0, enemySpawns.Length);
-        int playerSpawnIndex = Random.Range(0, playerSpawns.Length);
+        int enemySpawnIndex = UnityEngine.Random.Range(0, enemySpawns.Length);
+        int playerSpawnIndex = UnityEngine.Random.Range(0, playerSpawns.Length);
 
         enemyAIController.Respawn(enemySpawns[enemySpawnIndex].transform.position);
         player.Respawn(playerSpawns[playerSpawnIndex].transform.position);
@@ -92,9 +97,9 @@ public class MLEnvManager : MonoBehaviour {
         List<int> objectiveSpawned = new();
         for (int i = 0; i < (objectiveSpawnsAmount < objectiveSpawns.Length ? 
         objectiveSpawnsAmount : objectiveSpawns.Length); i++) {
-            int objectiveSpawnIndex = Random.Range(0, objectiveSpawns.Length);
+            int objectiveSpawnIndex = UnityEngine.Random.Range(0, objectiveSpawns.Length);
             while (objectiveSpawned.Contains(objectiveSpawnIndex)) 
-            objectiveSpawnIndex = Random.Range(0, objectiveSpawns.Length);
+            objectiveSpawnIndex = UnityEngine.Random.Range(0, objectiveSpawns.Length);
             objectiveSpawned.Add(objectiveSpawnIndex);
 
             var objectiveGO = Instantiate(objectivePrefab, 
@@ -103,6 +108,8 @@ public class MLEnvManager : MonoBehaviour {
             initialObjectives.Add(objectiveGO);
             activeObjectives.Add(objectiveGO);
         }
+
+        OnResetSpawn?.Invoke();
     }
 
 }
