@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Linq;
 
-public enum MenuState { None, Main, Gameplay, Dialogue, Win, Lose, }
+public enum MenuState { None, Main, Levels, HowToPlay, About, Gameplay, Dialogue, Win, Lose, }
 
 public class MenuManager : Singleton<MenuManager> {
 
@@ -19,6 +19,9 @@ public class MenuManager : Singleton<MenuManager> {
 
         menus = new MenuData[] {
             new(MenuState.Main),
+            new(MenuState.Levels),
+            new(MenuState.HowToPlay),
+            new(MenuState.About),
             new(MenuState.Gameplay),
             new(MenuState.Dialogue),
             new(MenuState.Win),

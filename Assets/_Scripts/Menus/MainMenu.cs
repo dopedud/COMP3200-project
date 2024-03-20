@@ -1,11 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : Menu {
 
-    public void Play() {}
+    [SerializeField] private Button playButton, howToPlayButton, aboutButton, quitButton;
 
-    public void Quit() => Application.Quit();
+    protected override void Awake() {
+        base.Awake();
+
+        playButton.onClick.AddListener(() => MenuManager.Instance.ChangeMenu(MenuState.Levels));
+        howToPlayButton.onClick.AddListener(() => MenuManager.Instance.ChangeMenu(MenuState.HowToPlay));
+        aboutButton.onClick.AddListener(() => MenuManager.Instance.ChangeMenu(MenuState.About));
+        quitButton.onClick.AddListener(() => Application.Quit());
+    }
+
+    protected override void OnDestroy() {
+        base.OnDestroy();
+
+        playButton.onClick.RemoveAllListeners();
+        howToPlayButton.onClick.RemoveAllListeners();
+        aboutButton.onClick.RemoveAllListeners();
+        quitButton.onClick.RemoveAllListeners();
+    }
 
 }
