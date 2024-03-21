@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
@@ -13,6 +12,8 @@ public class EnemyAILooker : MonoBehaviour {
 
 	private float viewRadius, viewAngle;
 
+    private Light viewLight;
+
 	private Mesh viewMesh;
 	private MeshFilter viewMeshFilter;
 
@@ -25,6 +26,10 @@ public class EnemyAILooker : MonoBehaviour {
 
 		viewRadius = rayPerceptionSensor.RayLength;
 		viewAngle = rayPerceptionSensor.MaxRayDegrees * 2;
+
+        viewLight = GetComponent<Light>();
+        viewLight.spotAngle = viewAngle;
+        viewLight.innerSpotAngle = viewAngle - 5;
 
 		viewMeshFilter = GetComponent<MeshFilter>();
         viewMesh = new Mesh { name = "View Mesh" };

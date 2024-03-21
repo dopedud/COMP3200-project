@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuState: 4
+  mainMenuButton: {fileID: 1631582461}
 --- !u!114 &379914061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +722,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -2750,7 +2751,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -3668,6 +3669,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuState: 2
+  levelButtons:
+  - {fileID: 402053555}
+  - {fileID: 1871035774}
+  - {fileID: 1357470442}
+  mainMenuButton: {fileID: 1602573223}
 --- !u!114 &1836753056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3788,6 +3794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuState: 3
+  mainMenuButton: {fileID: 1762357679}
 --- !u!114 &1851357438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3938,7 +3945,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}

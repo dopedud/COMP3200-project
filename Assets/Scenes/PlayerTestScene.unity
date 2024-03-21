@@ -181,11 +181,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1436435228909917028, guid: 56e5d8158b0601d4a9505399fadfc1ad,
-        type: 3}
-      propertyPath: MaxStep
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4316064731284176475, guid: 56e5d8158b0601d4a9505399fadfc1ad,
         type: 3}
       propertyPath: m_Name
@@ -261,7 +256,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -819,7 +814,7 @@ PrefabInstance:
     - target: {fileID: 1730713701644467440, guid: aaa901dc1eebf3e4cbf53894720e36be,
         type: 3}
       propertyPath: MenuInitialiser
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1730713701644467440, guid: aaa901dc1eebf3e4cbf53894720e36be,
         type: 3}

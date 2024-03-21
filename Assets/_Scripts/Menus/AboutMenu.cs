@@ -1,11 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AboutMenu : Menu {
 
-    public void MainMenu() {
-        MenuManager.Instance.ChangeMenu(MenuState.Main);
+    [SerializeField] private Button mainMenuButton;
+
+    protected override void Awake() {
+        base.Awake();
+
+        mainMenuButton.onClick.AddListener(() => MenuManager.Instance.ChangeMenu(MenuState.Main));
+    }
+
+    protected override void OnDestroy() {
+        base.OnDestroy();
+
+        mainMenuButton.onClick.RemoveAllListeners();
     }
 
 }
