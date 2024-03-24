@@ -2470,7 +2470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomiseRotation: 1
-  objectiveSpawnsAmount: 0
+  isTraining: 1
   subMLE:
   - {fileID: 5236825942191120777}
   - {fileID: 7429297213536137059}

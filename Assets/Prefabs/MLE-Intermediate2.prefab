@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomiseRotation: 1
-  objectiveSpawnsAmount: 0
+  isTraining: 1
   subMLE: []
   objectivePrefab: {fileID: 3839681169679844876, guid: 89b277019efe4794a9045c95f310b970,
     type: 3}

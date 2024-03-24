@@ -44,17 +44,12 @@ public class EnemyAIController : Agent {
     [SerializeField] private int explorationStepSize = 10;
     private int explorationStep;
 
-    [SerializeField] private GameObject navMeshAgentPrefab;
-    private List<NavMeshAgent> navMeshAgents;
-
     [SerializeField] int initialVectorObservationSize = 3;
 
     private BufferSensorComponent bufferSensor;
     private BehaviorParameters behaviorParameters;
 
     private void Awake() {
-        navMeshAgents = new List<NavMeshAgent>();
-
         academy = transform.parent.GetComponent<MLEnvManager>();
         rigidbody = GetComponent<Rigidbody>();
         colliderComponent = collider.GetComponent<CapsuleCollider>();

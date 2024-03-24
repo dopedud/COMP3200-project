@@ -2,7 +2,16 @@ using System;
 using UnityEngine;
 using System.Linq;
 
-public enum MenuState { None, Main, Levels, HowToPlay, About, Gameplay, Dialogue, Win, Lose, }
+public enum MenuState { 
+    None = -1, 
+    Main = 0, 
+    Gameplay = 1,
+    Levels = 2, 
+    HowToPlay = 3,
+    About = 4,
+    Win = 5, 
+    Lose = 6,
+}
 
 public class MenuManager : Singleton<MenuManager> {
 
@@ -18,14 +27,13 @@ public class MenuManager : Singleton<MenuManager> {
         base.Awake();
 
         menus = new MenuData[] {
-            new(MenuState.Main),
-            new(MenuState.Levels),
-            new(MenuState.HowToPlay),
-            new(MenuState.About),
-            new(MenuState.Gameplay),
-            new(MenuState.Dialogue),
-            new(MenuState.Win),
-            new(MenuState.Lose),
+            new(0),
+            new(1),
+            new(2),
+            new(3),
+            new(4),
+            new(5),
+            new(6),
         };
     }
 

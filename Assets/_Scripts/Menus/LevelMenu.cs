@@ -10,8 +10,14 @@ public class LevelMenu : Menu {
     protected override void Awake() {
         base.Awake();
 
-        for (int i = 0; i < levelButtons.Length; i++)
-        levelButtons[i].onClick.AddListener(() => Debug.Log("Level " + i + " pressed."));
+        for (int i = 0; i < levelButtons.Length; i++) {
+            int index = i;
+            levelButtons[index].onClick.AddListener(() => {
+                SceneLoader.Instance.ChangeScene(SceneState.Level1 + index);
+                InputManager.Instance.ChangeInput(InputState.Gameplay);
+                MenuManager.Instance.ChangeMenu(MenuState.Gameplay);
+            });
+        }
 
         mainMenuButton.onClick.AddListener(() => MenuManager.Instance.ChangeMenu(MenuState.Main));
     }

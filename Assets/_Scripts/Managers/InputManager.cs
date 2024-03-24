@@ -4,9 +4,12 @@ using UnityEngine.InputSystem;
 
 public enum InputFrom { Player, Enemy }
 
-public enum InputState { Menu, Gameplay }
+public enum InputState { None, Menu, Gameplay }
 
 public class InputManager : Singleton<InputManager> {
+
+    [SerializeField] private InputState currentInputState;
+    public InputState CurrentInputState => currentInputState;
 
     public PlayerInput playerInput { get; private set; }
     public EnemyInput enemyInput { get; private set; }
@@ -42,10 +45,15 @@ public class InputManager : Singleton<InputManager> {
                 break;
             }
 
-            actionMap.Enable();
+            currentInputState = inputState;
+            actionMap?.Enable();
         } catch (ArgumentNullException) {
             Debug.LogError("Cannot find input state given.");
         }
+
+        
     }
+
+    public void ChangeInput(InputState inputState) => ChangeInput(InputFrom.Player, inputState);
 
 }

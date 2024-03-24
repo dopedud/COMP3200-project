@@ -30,6 +30,7 @@ public class EnemyAILooker : MonoBehaviour {
         viewLight = GetComponent<Light>();
         viewLight.spotAngle = viewAngle;
         viewLight.innerSpotAngle = viewAngle - 5;
+        viewLight.range = viewRadius;
 
 		viewMeshFilter = GetComponent<MeshFilter>();
         viewMesh = new Mesh { name = "View Mesh" };

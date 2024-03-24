@@ -378,6 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomiseRotation: 0
+  isTraining: 1
   subMLE:
   - {fileID: 7275447406554896341}
   objectivePrefab: {fileID: 3839681169679844876, guid: 89b277019efe4794a9045c95f310b970,

@@ -16,9 +16,7 @@ public class MLEnvManager : MonoBehaviour {
     private Player player;
     private EnemyAIController enemyAIController;
 
-    [SerializeField] private bool randomiseRotation;
-
-    [SerializeField] private int objectiveSpawnsAmount;
+    [SerializeField] private bool randomiseRotation, isTraining;
 
     [SerializeField] private Transform[] subMLE;
 
@@ -50,7 +48,7 @@ public class MLEnvManager : MonoBehaviour {
             else {
                 subMLE[i].gameObject.SetActive(true);
 
-                if (randomiseRotation) 
+                if (randomiseRotation)
                 subMLE[i].rotation = Quaternion.Euler(0, UnityEngine.Random.Range(-180f, 180f), 0);
             } 
         }
@@ -58,9 +56,6 @@ public class MLEnvManager : MonoBehaviour {
         yield return null;
 
         ResetSpawn(subMLE[subMLEIndex]);
-
-        if (activeObjectives.Count > 0) 
-        player.SetDestination(activeObjectives[0].transform.position);
     }
 
     public void ClearObjective(GameObject objective) {
@@ -71,16 +66,30 @@ public class MLEnvManager : MonoBehaviour {
             OnPlayerCapturedObjective?.Invoke();
         }
 
+        int activeObjectivesIndex = UnityEngine.Random.Range(0, activeObjectives.Count);
+
         if (activeObjectives.Count > 0) 
-        player.SetDestination(activeObjectives[0].transform.position);
+        player.SetDestination(activeObjectives[activeObjectivesIndex].transform.position);
         else EndEpisode(false);
     }
 
     public void EndEpisode(bool hasCapturedPlayer) {
-        if (hasCapturedPlayer) enemyAIController.PlayerCapturedReward();
-        else enemyAIController.PlayerWinPunish();
+        if (isTraining) {
+            if (hasCapturedPlayer) enemyAIController.PlayerCapturedReward();
+            else enemyAIController.PlayerWinPunish();
 
-        enemyAIController.EndEpisode();
+            enemyAIController.EndEpisode();
+        } else {
+            //TODO: game lose
+            InputManager.Instance.ChangeInput(InputState.Menu);
+
+            if (hasCapturedPlayer) {
+                MenuManager.Instance.ChangeMenu(MenuState.Lose);
+            } else { 
+                MenuManager.Instance.ChangeMenu(MenuState.Win);
+                enemyAIController.gameObject.SetActive(false);
+            }
+        }
     }
     
     private void ResetSpawn(Transform subMLE) {
@@ -94,20 +103,16 @@ public class MLEnvManager : MonoBehaviour {
         enemyAIController.Respawn(enemySpawns[enemySpawnIndex].transform.position);
         player.Respawn(playerSpawns[playerSpawnIndex].transform.position);
 
-        List<int> objectiveSpawned = new();
-        for (int i = 0; i < (objectiveSpawnsAmount < objectiveSpawns.Length ? 
-        objectiveSpawnsAmount : objectiveSpawns.Length); i++) {
-            int objectiveSpawnIndex = UnityEngine.Random.Range(0, objectiveSpawns.Length);
-            while (objectiveSpawned.Contains(objectiveSpawnIndex)) 
-            objectiveSpawnIndex = UnityEngine.Random.Range(0, objectiveSpawns.Length);
-            objectiveSpawned.Add(objectiveSpawnIndex);
-
+        for (int i = 0; i < objectiveSpawns.Length; i++) {
             var objectiveGO = Instantiate(objectivePrefab, 
-            objectiveSpawns[objectiveSpawnIndex].transform.position, Quaternion.identity, gameObject.transform);
+            objectiveSpawns[i].transform.position, Quaternion.identity, gameObject.transform);
 
             initialObjectives.Add(objectiveGO);
             activeObjectives.Add(objectiveGO);
         }
+
+        int activeObjectivesIndex = UnityEngine.Random.Range(0, activeObjectives.Count);
+        player.SetDestination(activeObjectives[activeObjectivesIndex].transform.position);
 
         OnResetSpawn?.Invoke();
     }

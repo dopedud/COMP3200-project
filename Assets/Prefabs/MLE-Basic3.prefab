@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomiseRotation: 1
+  isTraining: 1
   subMLE:
   - {fileID: 449770513422926628}
   - {fileID: 2543229847380014128}
