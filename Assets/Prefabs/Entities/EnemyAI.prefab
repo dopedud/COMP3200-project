@@ -461,7 +461,6 @@ MonoBehaviour:
   explorationRadius: 1.8
   explorationReward: 0.15
   explorationStepSize: 10
-  initialVectorObservationSize: 3
 --- !u!114 &6321201662396063314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 0
+    VectorObservationSize: 3
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0

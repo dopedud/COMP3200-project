@@ -10,7 +10,11 @@ public class LoseMenu : Menu {
     protected override void Awake() {
         base.Awake();
 
-        mainMenuButton.onClick.AddListener(() => MenuManager.Instance.ChangeMenu(MenuState.Main));
+        mainMenuButton.onClick.AddListener(() => {
+            MenuManager.Instance.ChangeMenu(MenuState.Main);
+            if (SceneLoader.Instance.CurrentSceneState != SceneState.None) 
+            SceneLoader.Instance.ChangeScene(SceneState.Main);
+        });
     }
 
     protected override void OnDestroy() {

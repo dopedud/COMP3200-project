@@ -23,6 +23,8 @@ public class SceneLoader : Singleton<SceneLoader> {
     protected override void Awake() {
         base.Awake();
 
+        currentSceneState = SceneState.None;
+
         if (!Enum.TryParse(SceneManager.GetActiveScene().name, false, out currentSceneState)) 
         Debug.LogWarning("Unable to parse current scene.");
     }

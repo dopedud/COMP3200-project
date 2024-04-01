@@ -44,10 +44,7 @@ public class EnemyAIController : Agent {
     [SerializeField] private int explorationStepSize = 10;
     private int explorationStep;
 
-    [SerializeField] int initialVectorObservationSize = 3;
-
     private BufferSensorComponent bufferSensor;
-    private BehaviorParameters behaviorParameters;
 
     private void Awake() {
         academy = transform.parent.GetComponent<MLEnvManager>();
@@ -58,8 +55,6 @@ public class EnemyAIController : Agent {
         enemyInput = InputManager.Instance.enemyInput;
 
         bufferSensor = GetComponent<BufferSensorComponent>();
-        behaviorParameters = GetComponent<BehaviorParameters>();
-        behaviorParameters.BrainParameters.VectorObservationSize = initialVectorObservationSize;
     }
     
     private void OnTriggerEnter(Collider other) {

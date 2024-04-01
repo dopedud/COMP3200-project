@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 43d5be9233bfa064687d94bd51da6511
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
+    path: Assets/Scenes/Level2.unity
     guid: 942eccfab3ab79649b892900451bdd0f
   - enabled: 0
     path: Assets/Scenes/MLETrainingScene-Basic.unity
