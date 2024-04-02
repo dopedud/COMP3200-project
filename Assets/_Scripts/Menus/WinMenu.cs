@@ -11,8 +11,8 @@ public class WinMenu : Menu {
         base.Awake();
 
         mainMenuButton.onClick.AddListener(() => {
+            if (SceneLoader.Instance.CurrentSceneState == SceneState.None) return;
             MenuManager.Instance.ChangeMenu(MenuState.Main);
-            if (SceneLoader.Instance.CurrentSceneState != SceneState.None) 
             SceneLoader.Instance.ChangeScene(SceneState.Main);
         });
     }

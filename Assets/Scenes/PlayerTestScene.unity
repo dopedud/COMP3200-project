@@ -819,7 +819,7 @@ PrefabInstance:
     - target: {fileID: 1730713701644467440, guid: aaa901dc1eebf3e4cbf53894720e36be,
         type: 3}
       propertyPath: InputInitialiser
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7156773569957641353, guid: aaa901dc1eebf3e4cbf53894720e36be,
         type: 3}

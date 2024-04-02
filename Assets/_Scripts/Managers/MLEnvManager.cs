@@ -30,6 +30,8 @@ public class MLEnvManager : MonoBehaviour {
         player = GetComponentInChildren<Player>();
         enemyAIController = GetComponentInChildren<EnemyAIController>();
 
+        Debug.Log("MLEnvManager is awake.");
+
         activeObjectives = new();
         initialObjectives = new();
     }
@@ -37,7 +39,7 @@ public class MLEnvManager : MonoBehaviour {
     public void Initialise() => StartCoroutine(InitialiseCoroutine());
 
     private IEnumerator InitialiseCoroutine() {
-        foreach (var objective in initialObjectives) Destroy(objective); 
+        foreach (var objective in initialObjectives) Destroy(objective);
 
         initialObjectives.Clear();
         activeObjectives.Clear();

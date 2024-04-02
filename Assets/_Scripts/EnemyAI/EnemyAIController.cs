@@ -63,7 +63,8 @@ public class EnemyAIController : Agent {
         academy.EndEpisode(true);
     }
 
-    public override void OnEpisodeBegin() { 
+    public override void OnEpisodeBegin() {
+        Debug.Log("EnemyAIController is awake.");
         academy.Initialise();
     }
 
