@@ -64,7 +64,6 @@ public class EnemyAIController : Agent {
     }
 
     public override void OnEpisodeBegin() {
-        Debug.Log("EnemyAIController is awake.");
         academy.Initialise();
     }
 
@@ -124,11 +123,10 @@ public class EnemyAIController : Agent {
             NavMeshPath path = new();
 
             if (!NavMesh.CalculatePath(transform.position, objective.transform.position, 
-            NavMesh.GetAreaFromName(EnemyNavMeshLayerName), path)) continue;
+            1 << NavMesh.GetAreaFromName(EnemyNavMeshLayerName), path)) continue;
 
             try {
                 var navDirection = path.corners[1] - transform.position;
-                Debug.DrawRay(transform.position, navDirection, Color.cyan, .1f);
 
                 bufferSensor.AppendObservation(new float[] { 
                     navDirection.x,
@@ -136,6 +134,8 @@ public class EnemyAIController : Agent {
                     navDirection.z,
                     objective.activeInHierarchy ? 1 : 0
                 });
+
+                Debug.DrawRay(transform.position, navDirection, Color.cyan, .1f);
             } catch (IndexOutOfRangeException) {}
         }
     }

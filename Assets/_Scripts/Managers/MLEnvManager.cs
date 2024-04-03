@@ -9,6 +9,7 @@ using UnityEngine;
 /// enemy states accordingly, and based on the reset condition, resets accordingly, with player and enemy spawning at
 /// their resetting position. It also manages what to do when an episode ends.
 /// </summary>
+[DefaultExecutionOrder(-1)]
 public class MLEnvManager : MonoBehaviour {
 
     public event Action OnResetSpawn, OnPlayerCapturedObjective;
@@ -30,10 +31,8 @@ public class MLEnvManager : MonoBehaviour {
         player = GetComponentInChildren<Player>();
         enemyAIController = GetComponentInChildren<EnemyAIController>();
 
-        Debug.Log("MLEnvManager is awake.");
-
-        activeObjectives = new();
         initialObjectives = new();
+        activeObjectives = new();
     }
 
     public void Initialise() => StartCoroutine(InitialiseCoroutine());
@@ -82,7 +81,6 @@ public class MLEnvManager : MonoBehaviour {
 
             enemyAIController.EndEpisode();
         } else {
-            //TODO: game lose
             InputManager.Instance.ChangeInput(InputState.Menu);
 
             if (hasCapturedPlayer) {
