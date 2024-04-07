@@ -111,8 +111,10 @@ public class MLEnvManager : MonoBehaviour {
             activeObjectives.Add(objectiveGO);
         }
 
-        int activeObjectivesIndex = UnityEngine.Random.Range(0, activeObjectives.Count);
-        player.SetDestination(activeObjectives[activeObjectivesIndex].transform.position);
+        if (objectiveSpawns.Length > 0) {
+            int activeObjectivesIndex = UnityEngine.Random.Range(0, activeObjectives.Count);
+            player.SetDestination(activeObjectives[activeObjectivesIndex].transform.position);
+        }
 
         OnResetSpawn?.Invoke();
     }
