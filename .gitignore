@@ -27,7 +27,7 @@
 # Python environment directory (folder name depends on user)
 venv/
 
-# Reinforcement learning model results folder (exce)
+# Reinforcement learning model results folder
 results/ChasePlayer-*/ChasePlayer/
 results/ChasePlayer-*/run_logs/
 results/ChasePlayer-*/configuration.yaml

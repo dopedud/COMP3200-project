@@ -3,7 +3,7 @@ behaviors:
         trainer_type: ppo
 
         # Trainer configurations common to all trainers
-        max_steps: 5e6
+        max_steps: 3e6
         time_horizon: 64
         summary_freq: 5000
         keep_checkpoints: 5
@@ -35,9 +35,6 @@ behaviors:
             normalize: false
             hidden_units: 384
             num_layers: 4
-            memory:
-                memory_size: 128
-                sequence_length: 64
 
         reward_signals:
 
