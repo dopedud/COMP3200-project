@@ -447,7 +447,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 1000
   collider: {fileID: 7678298708797084663}
   moveSpeed: 6
   rotateSpeed: 2.5
