@@ -32,9 +32,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MLETrainingScene-Intermediate.unity
     guid: e29024eb219552c42a046465031b333e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MLETrainingScene-Intermediate2.unity
     guid: 85450ac6f6b042a4cadfe4bb86354eeb
+  - enabled: 0
+    path: Assets/Scenes/MLETrainingScene-Level1.unity
+    guid: 47b1abf4b003a154f8194cd5bc7394d1
+  - enabled: 1
+    path: Assets/Scenes/MLETrainingScene-Level2.unity
+    guid: 8b96b277129103c4dbbc9c7c298e8ac7
   m_configObjects:
     com.unity.ml-agents.settings: {fileID: 11400000, guid: 8c314106dea3a9446a8b99361d51b00a,
       type: 2}
