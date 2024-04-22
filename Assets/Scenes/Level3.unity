@@ -326,6 +326,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAI
       objectReference: {fileID: 0}
+    - target: {fileID: 6321201662396063314, guid: 56e5d8158b0601d4a9505399fadfc1ad,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: a4e62fc4370c3824dad3ff0fed300f77,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

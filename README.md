@@ -62,6 +62,7 @@ To visualise learning data, do the following steps:
 These are the common commands you would want to use when training, for easy copy and paste into cmd:
 - `mlagents-learn config\ChasePlayer-1M.yaml --run-id=ChasePlayer-Basic --force --env=Builds\ChasePlayer-Basic\COMP3200-project --num-envs=1 --no-graphics`
 - `mlagents-learn config\ChasePlayer-1M.yaml --run-id=ChasePlayer-Basic2 --initialize-from=ChasePlayer-Basic --force --env=Builds\ChasePlayer-Basic2\COMP3200-project --num-envs=1 --no-graphics`
+- `mlagents-learn config\ChasePlayer-Memory-3M.yaml --run-id=ChasePlayer-Level1 --initialize-from=ChasePlayer-Intermediate2 --force --env=Builds\ChasePlayer-Level1\COMP3200-project --num-envs=1 --no-graphics`
 
 ## Author and Developer
 
