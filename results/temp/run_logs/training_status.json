@@ -1,0 +1,65 @@
+{
+    "ChasePlayer": {
+        "checkpoints": [
+            {
+                "steps": 699977,
+                "file_path": "results\\temp\\ChasePlayer\\ChasePlayer-699977.onnx",
+                "reward": 4.888333303306033,
+                "creation_time": 1713972127.79339,
+                "auxillary_file_paths": [
+                    "results\\temp\\ChasePlayer\\ChasePlayer-699977.pt"
+                ]
+            },
+            {
+                "steps": 799996,
+                "file_path": "results\\temp\\ChasePlayer\\ChasePlayer-799996.onnx",
+                "reward": 4.2003845523756285,
+                "creation_time": 1713972269.601957,
+                "auxillary_file_paths": [
+                    "results\\temp\\ChasePlayer\\ChasePlayer-799996.pt"
+                ]
+            },
+            {
+                "steps": 899990,
+                "file_path": "results\\temp\\ChasePlayer\\ChasePlayer-899990.onnx",
+                "reward": 4.749611641862053,
+                "creation_time": 1713972406.8296645,
+                "auxillary_file_paths": [
+                    "results\\temp\\ChasePlayer\\ChasePlayer-899990.pt"
+                ]
+            },
+            {
+                "steps": 999943,
+                "file_path": "results\\temp\\ChasePlayer\\ChasePlayer-999943.onnx",
+                "reward": 4.614328344440579,
+                "creation_time": 1713972546.6461594,
+                "auxillary_file_paths": [
+                    "results\\temp\\ChasePlayer\\ChasePlayer-999943.pt"
+                ]
+            },
+            {
+                "steps": 1000007,
+                "file_path": "results\\temp\\ChasePlayer\\ChasePlayer-1000007.onnx",
+                "reward": 4.614328344440579,
+                "creation_time": 1713972546.8702092,
+                "auxillary_file_paths": [
+                    "results\\temp\\ChasePlayer\\ChasePlayer-1000007.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000007,
+            "file_path": "results\\temp\\ChasePlayer.onnx",
+            "reward": 4.614328344440579,
+            "creation_time": 1713972546.8702092,
+            "auxillary_file_paths": [
+                "results\\temp\\ChasePlayer\\ChasePlayer-1000007.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.1.1+cu121"
+    }
+}
