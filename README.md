@@ -1,5 +1,7 @@
 # COMP3200 Part III Individual Project
 
+## About
+
 This is a git repository for the module COMP3200 - Part III Individual Project. This unity 
 project is about developing a machine learning model that act as a hostile entity towards
 the player that can be seen in most horror games.
@@ -63,9 +65,5 @@ These are the common commands you would want to use when training, for easy copy
 - `mlagents-learn config\ChasePlayer-1M.yaml --run-id=ChasePlayer-Basic --force --env=Builds\ChasePlayer-Basic\COMP3200-project --num-envs=1 --no-graphics`
 - `mlagents-learn config\ChasePlayer-1M.yaml --run-id=ChasePlayer-Basic2 --initialize-from=ChasePlayer-Basic --force --env=Builds\ChasePlayer-Basic2\COMP3200-project --num-envs=1 --no-graphics`
 - `mlagents-learn config\ChasePlayer-Memory-3M.yaml --run-id=ChasePlayer-Level1 --initialize-from=ChasePlayer-Intermediate2 --force --env=Builds\ChasePlayer-Level1\COMP3200-project --num-envs=1 --no-graphics`
-
-## Author and Developer
-
-- Abeed (theabeed01@gmail.com)
 
 ### UNITY VERSION - 2022.3.13f1
