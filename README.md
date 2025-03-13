@@ -8,7 +8,7 @@ the player that can be seen in most horror games.
 
 ## Video Demonstration
 
-![Video Demonstration](demo.mp4)
+<video src = "demo.mp4" controls></video>
 
 ## Installation and Usage
 
