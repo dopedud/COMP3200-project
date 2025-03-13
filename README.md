@@ -6,6 +6,10 @@ This is a git repository for the module COMP3200 - Part III Individual Project. 
 project is about developing a machine learning model that act as a hostile entity towards
 the player that can be seen in most horror games.
 
+## Video Demonstration
+
+![Video Demonstration](demo.mp4)
+
 ## Installation and Usage
 
 This project uses Unity's ML Agents package cloned from the git repository https://github.com/Unity-Technologies/ml-agents/tree/release_20.
