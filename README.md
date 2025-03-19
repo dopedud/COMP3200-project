@@ -8,6 +8,8 @@ the player that can be seen in most horror games.
 
 ## Video Demonstration
 
+Below shows a video demonstration showing how agents are trained in the unity editor. If the video isn't shown, open the "demo.mp4" file in root folder of this project. 
+
 <video src = "demo.mp4" width = "540" controls></video>
 
 ## Installation and Usage
